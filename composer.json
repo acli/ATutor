@@ -1,0 +1,20 @@
+{
+    "name":         "atutor/atutor",
+    "description":  "ATutor: Learning Management System",
+    "keywords":     ["elearning", "e-learning", "social networking", "course management system", "learning content management system", "learning management system", "virtual learning environment", "online learning system", "LMS"],
+    "homepage":     "http://atutor.ca/",
+    "type":         "project",
+    "license":      "GPL-2.0",
+
+    "support": {
+        "forum":    "http://atutor.ca/forums/",
+        "wiki":     "http://wiki.atutor.ca/display/atutorwiki/ATutor+Wiki",
+        "irc":      "irc://irc.oftc.net/#atutor",
+        "source":   "https://github.com/atutor/ATutor"
+    },
+
+    "require": {
+        "php":      ">=5.1.0"
+    },
+    "autoload": {"psr-0": {"": "src"}},
+}

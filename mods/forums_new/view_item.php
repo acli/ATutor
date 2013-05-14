@@ -1,6 +1,6 @@
 <?php
 /************************************************************************/
-/* ATutor																*/
+/* ATutor                                                               */
 /************************************************************************/
 /* Copyright (c) 2002-2010                                              */
 /* Inclusive Design Institute                                           */
@@ -11,11 +11,11 @@
 /************************************************************************/
 // $Id$
 
-	define('AT_INCLUDE_PATH', '../../../include/');
-	require(AT_INCLUDE_PATH.'vitals.inc.php');
+    define('AT_INCLUDE_PATH', '../../../include/');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
 
-	$url = urldecode($_GET['url']);
+    $url = urldecode($_GET['url']);
 
-	@readfile($_GET['url']);
+    @readfile($_GET['url']);
 
 ?>

@@ -1,14 +1,14 @@
 <?php
 /****************************************************************/
-/* ATutor														*/
+/* ATutor                                                       */
 /****************************************************************/
 /* Copyright (c) 2002-2010                                      */
 /* Inclusive Design Institute                                   */
-/* http://atutor.ca												*/
+/* http://atutor.ca                                             */
 /*                                                              */
 /* This program is free software. You can redistribute it and/or*/
 /* modify it under the terms of the GNU General Public License  */
-/* as published by the Free Software Foundation.				*/
+/* as published by the Free Software Foundation.                */
 /****************************************************************/
 // $Id$
 
@@ -18,13 +18,13 @@ require(AT_INCLUDE_PATH.'vitals.inc.php');
 authenticate(AT_PRIV_FORUMS);
 
 if (isset($_GET['edit'], $_GET['id'])) {
-	header('Location: '.AT_BASE_HREF.'mods/_standard/forums/edit_forum.php?fid='.intval($_GET['id']));
-	exit;
+    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/edit_forum.php?fid='.intval($_GET['id']));
+    exit;
 } else if (isset($_GET['delete'], $_GET['id'])) {
-	header('Location: '.AT_BASE_HREF.'mods/_standard/forums/delete_forum.php?fid='.intval($_GET['id']));
-	exit;
+    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/delete_forum.php?fid='.intval($_GET['id']));
+    exit;
 } else if (isset($_GET['edit']) || isset($_GET['delete'])) {
-	$msg->addError('NO_ITEM_SELECTED');
+    $msg->addError('NO_ITEM_SELECTED');
 }
 
 require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');

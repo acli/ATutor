@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1a6d490e860edc9ffa4452e7e0cf08b8",
+    "hash": "053205302606e2ce0abe826cba2561bd",
     "packages": [
 
     ],
@@ -667,12 +667,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
-                "reference": "v2.3.0-BETA2"
+                "reference": "193cee83794f3b2c699b7fd5834cb97894d73d00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/v2.3.0-BETA2",
-                "reference": "v2.3.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/193cee83794f3b2c699b7fd5834cb97894d73d00",
+                "reference": "193cee83794f3b2c699b7fd5834cb97894d73d00",
                 "shasum": ""
             },
             "require": {
@@ -684,7 +684,7 @@
                 "symfony/process": ">=2.0,<3.0"
             },
             "suggest": {
-                "symfony/process": "2.2.*"
+                "symfony/process": ""
             },
             "type": "library",
             "extra": {
@@ -713,7 +713,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-30 07:16:44"
+            "time": "2013-05-13 14:36:40"
         },
         {
             "name": "symfony/config",
@@ -913,12 +913,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "64dc2f811dbb51fb521c4370ef0a9574b030904c"
+                "reference": "8e021abc55ad89df5ae63bbd6bd9d01ac3c8e5b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/64dc2f811dbb51fb521c4370ef0a9574b030904c",
-                "reference": "64dc2f811dbb51fb521c4370ef0a9574b030904c",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/8e021abc55ad89df5ae63bbd6bd9d01ac3c8e5b2",
+                "reference": "8e021abc55ad89df5ae63bbd6bd9d01ac3c8e5b2",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "symfony/css-selector": ">=2.0,<3.0"
             },
             "suggest": {
-                "symfony/css-selector": "2.2.*"
+                "symfony/css-selector": ""
             },
             "type": "library",
             "extra": {
@@ -957,7 +957,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-10 15:43:46"
+            "time": "2013-05-13 14:36:40"
         },
         {
             "name": "symfony/event-dispatcher",

@@ -17,6 +17,8 @@ global $db;
 global $_base_path;
 global $savant;
 
+$dir = 'mods/forums_new';
+
 //Number of posts to display
 $post_limit = 5;
     
@@ -36,7 +38,10 @@ if ($forum_list != 0) {
     if (mysql_num_rows($result) > 0) {
         print '<ul type=circle>';
         while ($row = mysql_fetch_assoc($result)) {
-            echo '<li><a href="' . $_base_path.url_rewrite('mods/_standard/forums/forum/view.php?fid=' . $row['forum_id'] . SEP . 'pid=' . $row['post_id']) . '" title="' . AT_print($row['subject'], 'forums_threads.subject') . ': ' . htmlspecialchars(get_display_name($row['member_id'])) . '">' . AT_print(validate_length($row['subject'], 20, VALIDATE_LENGTH_FOR_DISPLAY), 'forums_threads.subject') . '</a></li>';
+            $url = $_base_path.url_rewrite($dir . '/forum/view.php?fid='
+                    . $row['forum_id'] . SEP . 'pid=' . $row['post_id']);
+            echo '<li><a href="' . htmlspecialchars($url)
+                    .  '" title="' . AT_print($row['subject'], 'forums_threads.subject') . ': ' . htmlspecialchars(get_display_name($row['member_id'])) . '">' . AT_print(validate_length($row['subject'], 20, VALIDATE_LENGTH_FOR_DISPLAY), 'forums_threads.subject') . '</a></li>';
         }
         print '</ul>';
     } else {

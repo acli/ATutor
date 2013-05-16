@@ -18,7 +18,8 @@ including:
 - dropdown/posts.inc.php
 - and throughout the whole code base
 
-In this partial rewrite the second case (i.e., the directory path
+In this partial rewrite the last case in this second list
+(i.e., the directory path
 being hard-coded throughout the whole code base) is partially mitigated
 by moving the hard-coded path to lib/module.inc.php
 

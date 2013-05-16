@@ -1,8 +1,9 @@
 <?php
+/* vi: set sw=4 et ai sm: # vi mode line - DO NOT MOVE OR REMOVE        */
 /************************************************************************/
 /* ATutor                                                               */
 /************************************************************************/
-/* Copyright (c) 2002-2010                                              */
+/* Copyright (c) 2002-2010, 2013                                        */
 /* Inclusive Design Institute                                           */
 /* http://atutor.ca                                                     */
 /* This program is free software. You can redistribute it and/or        */
@@ -10,6 +11,8 @@
 /* as published by the Free Software Foundation.                        */
 /************************************************************************/
 if (!defined('AT_INCLUDE_PATH')) { exit; }
+
+include_once('lib/layout.inc.php');
 
 $sql    = "SELECT COUNT(*) AS cnt FROM ".TABLE_PREFIX."forums_threads WHERE parent_id=0 AND forum_id=$fid";
 $result = mysql_query($sql, $db);
@@ -23,7 +26,7 @@ if (!isset($_GET['page']) || !$_GET['page']) {
     $page = intval($_GET['page']);
 }
 $start = ($page-1)*$num_per_page;
-$num_pages = ceil($num_threads/$num_per_page);
+$num_pages = number_of_pages($num_threads, $num_per_page);
 $page_string = SEP.'fid='. $fid;
 
 $orders = array('asc' => 'desc', 'desc' => 'asc');
@@ -141,7 +144,7 @@ if (!($row = mysql_fetch_assoc($result))) {
         }
 
         /* print page numbers */
-        $num_pages_2 = ceil(($row['num_comments']+1)/$num_per_page);
+        $num_pages_2 = number_of_pages($row['num_comments']+1, $num_per_page);
 
         if ($num_pages_2 > 1) {
             echo ' <small class="spacer">( Page: ';

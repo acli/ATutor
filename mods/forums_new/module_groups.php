@@ -1,7 +1,7 @@
 <?php
 
 // create group
-function forums_create_group($group_id) {
+function forums_new_create_group($group_id) {
     global $db;
 
     $sql    = "INSERT INTO ".TABLE_PREFIX."forums VALUES (NULL,'', '', 0, 0, NOW(), 0)";
@@ -13,7 +13,7 @@ function forums_create_group($group_id) {
 
 
 // delete group
-function forums_delete_group($group_id) {
+function forums_new_delete_group($group_id) {
     global $db;
 
     require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');

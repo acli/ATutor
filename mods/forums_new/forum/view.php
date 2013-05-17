@@ -1,8 +1,9 @@
 <?php
+/* vi: set sw=4 et ai sm: # vi mode line - DO NOT MOVE OR REMOVE            */
 /****************************************************************************/
 /* ATutor                                                                   */
 /****************************************************************************/
-/* Copyright (c) 2002-2010                                                  */
+/* Copyright (c) 2002-2010, 2013                                            */
 /* Inclusive Design Institute                                               */
 /* http://atutor.ca                                                         */
 /*                                                                          */
@@ -11,8 +12,11 @@
 /* as published by the Free Software Foundation.                            */
 /****************************************************************************/
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = MODULE_DIR;
 
 $fid = intval($_GET['fid']);
 $_GET['reply'] = isset($_GET['reply']) ? $_GET['reply'] : '';
@@ -23,7 +27,7 @@ if (!isset($_GET['fid']) || !$fid) {
     exit;
 }
 
-require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php'); // for print_entry et al
+require(AT_INCLUDE_PATH."../$forums_d/lib/forums.inc.php"); // for print_entry et al
 
 if (!valid_forum_user($fid)) {
     require(AT_INCLUDE_PATH.'header.inc.php');
@@ -44,16 +48,19 @@ else if (isset($_GET['order']))
 
 $forum_info = get_forum($fid);
 
-$_pages[url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid)]['title']    = get_forum_name($fid);
-$_pages[url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid)]['parent']   = 'mods/_standard/forums/forum/list.php';
-$_pages[url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid)]['children'] = array(url_rewrite('mods/_standard/forums/forum/new_thread.php?fid='.$fid), 'search.php?search_within[]=forums');
+$_pages[url_rewrite("$forums_d/forum/index.php?fid=$fid")]['title']    = get_forum_name($fid);
+$_pages[url_rewrite("$forums_d/forum/index.php?fid=$fid")]['parent']   = "$forums_d/forum/list.php";
+$_pages[url_rewrite("$forums_d/forum/index.php?fid=$fid")]['children'] = array(
+    url_rewrite("$forums_d/forum/new_thread.php?fid=$fid"),
+    'search.php?search_within[]=forums',
+);
 
-$_pages[url_rewrite('mods/_standard/forums/forum/new_thread.php?fid='.$fid)]['title_var'] = 'new_thread';
-$_pages[url_rewrite('mods/_standard/forums/forum/new_thread.php?fid='.$fid)]['parent']    = url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid);
+$_pages[url_rewrite("$forums_d/forum/new_thread.php?fid=$fid")]['title_var'] = 'new_thread';
+$_pages[url_rewrite("$forums_d/forum/new_thread.php?fid=$fid")]['parent']    = url_rewrite("$forums_d/forum/index.php?fid=$fid");
 
-$_pages['mods/_standard/forums/forum/view.php']['parent'] = url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid);
+$_pages["$forums_d/forum/view.php"]['parent'] = url_rewrite("$forums_d/forum/index.php?fid=$fid");
 $_pages['search.php?search_within[]=forums']['title_var'] = 'search';
-$_pages['search.php?search_within[]=forums']['parent']    = url_rewrite('mods/_standard/forums/forum/index.php');
+$_pages['search.php?search_within[]=forums']['parent']    = url_rewrite("$forums_d/forum/index.php");
 
 if ($_REQUEST['reply']) {
     $onload = 'document.form.subject.focus();';
@@ -75,14 +82,14 @@ $result = mysql_query($sql, $db);
 
 if (!($post_row = mysql_fetch_array($result))) {
     require(AT_INCLUDE_PATH.'header.inc.php');
-    $_pages['mods/_standard/forums/forum/view.php']['title']  = _AT('no_post');
+    $_pages["$forums_d/forum/view.php"]['title']  = _AT('no_post');
 
     echo _AT('no_post');
     require(AT_INCLUDE_PATH.'footer.inc.php');
     exit;
 }
 
-$_pages['mods/_standard/forums/forum/view.php']['title']  = $post_row['subject'];
+$_pages["$forums_d/forum/view.php"]['title']  = $post_row['subject'];
 
 require(AT_INCLUDE_PATH.'header.inc.php');
 
@@ -201,17 +208,17 @@ require(AT_INCLUDE_PATH.'header.inc.php');
         $result = mysql_query($sql, $db);
         $row = mysql_fetch_assoc($result);
         if ($row['subscribe']) {
-            echo '<p><a href="mods/_standard/forums/forum/subscribe.php?fid='.$fid.SEP.'pid='.$_GET['pid'].SEP.'us=1">'._AT('unsubscribe').'</a></p>';
+            echo '<p><a href="'.$forums_d.'/forum/subscribe.php?fid='.$fid.SEP.'pid='.$_GET['pid'].SEP.'us=1">'._AT('unsubscribe').'</a></p>';
             $subscribed = true;
         } else {
-            echo '<p><a href="mods/_standard/forums/forum/subscribe.php?fid='.$fid.SEP.'pid='.$_GET['pid'].'">'._AT('subscribe').'</a></p>';
+            echo '<p><a href="'.$forums_d.'/forum/subscribe.php?fid='.$fid.SEP.'pid='.$_GET['pid'].'">'._AT('subscribe').'</a></p>';
             $subscribed = false;
         }
     }
     if ($_SESSION['valid_user'] === true && !$_SESSION['enroll']) {
         echo '<p><strong>'._AT('enroll_to_post').'</strong></p>';
     } else if ($locked == 0) {
-        require(AT_INCLUDE_PATH.'../mods/_standard/forums/html/new_thread.inc.php');
+        require(AT_INCLUDE_PATH."../$forums_d/html/new_thread.inc.php");
     } else {
         echo '<p><strong>'._AT('lock_no_post1').'</strong></p>';
     }

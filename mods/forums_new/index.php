@@ -1,8 +1,9 @@
 <?php
+/* vi: set sw=4 et ai sm: # vi mode line - DO NOT MOVE OR REMOVE*/
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -13,7 +14,9 @@
 // $Id$
 
 $page = 'tools';
-define('AT_INCLUDE_PATH', '../../../include/');
+define('AT_MODULE_ROOT', './');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
 authenticate(AT_PRIV_FORUMS);
 

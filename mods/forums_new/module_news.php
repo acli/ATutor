@@ -15,7 +15,7 @@
  * Get the latest updates of this module
  * @return list of news, [timestamp]=>
  */
-function forums_news() {
+function forums_new_news() {
     require_once(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
     global $db, $enrolled_courses, $system_courses;
     $news = array();

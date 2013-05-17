@@ -1,6 +1,6 @@
 <?php
 
-function forums_delete($course) {
+function forums_new_delete($course) {
     global $db;
 
     $sql = "SELECT * FROM ".TABLE_PREFIX."forums_courses WHERE course_id=$course";

@@ -1,5 +1,4 @@
-<?php
-/* vi: set sw=4 et ai sm: # vi mode line - DO NOT MOVE OR REMOVE */
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 
 if (!defined('AT_INCLUDE_PATH')) { exit; }
 if (!isset($this) || (isset($this) && (strtolower(get_class($this)) != 'module'))) { exit(__FILE__ . ' is not a Module'); }

@@ -1,6 +1,4 @@
-<?php
-/* vi: set ai sm: */
-/* vim: set filetype=php: */
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 
 require_once('simpletest/autorun.php');
 

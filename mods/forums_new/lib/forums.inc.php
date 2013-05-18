@@ -13,6 +13,7 @@
 // $Id$
 
 if (!defined('AT_INCLUDE_PATH')) { exit; }
+if (!defined('MODULE_DIR')) { exit; }
 
 /**
 * Returns an array of (shared and non-shared) forums belonging to the given course
@@ -262,7 +263,7 @@ function print_entry($row) {
     static $counter;
     $counter++;
 
-    $reply_link = '<a href="mods/_standard/forums/forum/view.php?fid='.$row['forum_id'].SEP.'pid=';
+    $reply_link = '<a href="' . MODULE_DIR . '/forum/view.php?fid='.$row['forum_id'].SEP.'pid=';
     if ($row['parent_id'] == 0) {
         $reply_link .= $row['post_id'];
     } else {
@@ -284,9 +285,9 @@ function print_entry($row) {
             <div>
                 <div class="forum-post-ctrl">
                     <?php if (authenticate(AT_PRIV_FORUMS, AT_PRIV_RETURN)): ?>
-                        <?php echo $reply_link; ?> | <a href="mods/_standard/forums/edit_post.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id']; ?>"><?php echo _AT('edit'); ?></a> | <a href="mods/_standard/forums/forum/delete_thread.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id'].SEP.'ppid='.$row['parent_id'].SEP; ?>nest=1"><?php echo _AT('delete'); ?></a>
+                        <?php echo $reply_link; ?> | <a href="<?php echo MODULE_DIR; ?>/edit_post.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id']; ?>"><?php echo _AT('edit'); ?></a> | <a href="<?php echo MODULE_DIR; ?>/forum/delete_thread.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id'].SEP.'ppid='.$row['parent_id'].SEP; ?>nest=1"><?php echo _AT('delete'); ?></a>
                     <?php elseif (($row['member_id'] == $_SESSION['member_id']) && (($row['udate'] + $forum_info['mins_to_edit'] * 60) > time())): ?>
-                        <?php echo $reply_link; ?> | <a href="mods/_standard/forums/edit_post.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id']; ?>"><?php echo _AT('edit'); ?></a> <span>(<?php echo _AT('edit_for_minutes', round((($row['udate'] + $forum_info['mins_to_edit'] * 60) - time())/60)); ?>)</span>
+                        <?php echo $reply_link; ?> | <a href="<?php echo MODULE_DIR; ?>/edit_post.php?fid=<?php echo $row['forum_id'].SEP.'pid='.$row['post_id']; ?>"><?php echo _AT('edit'); ?></a> <span>(<?php echo _AT('edit_for_minutes', round((($row['udate'] + $forum_info['mins_to_edit'] * 60) - time())/60)); ?>)</span>
                     <?php elseif ($_SESSION['valid_user'] == true): ?>
                         <?php echo $reply_link; ?>
                     <?php endif; ?>

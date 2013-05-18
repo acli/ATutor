@@ -35,4 +35,32 @@ function at_include_path_from( $module_root ) {
     return $at_include_path;
 }
 
+/*
+ * Concatenate the given subpaths and eliminate . and .. segments.
+ *
+ * @return  string  $path
+ */
+function compose_path() {
+    $subpaths = func_get_args();
+    $path = '';
+    foreach ($subpaths as $subpath) {
+        $c = substr($path, -1);
+        if ($path && $c != DIRECTORY_SEPARATOR && $c != '/') {
+            $path .= '/';
+        }
+        $path .= $subpath;
+    }
+    print "\n\npath=($path)\n";
+    $sep_re = (DIRECTORY_SEPARATOR == '/')? '\/':
+            ('(?:(?:\/|' . addslashes(DIRECTORY_SEPARATOR) . '))');
+    $not_sep_re = (DIRECTORY_SEPARATOR == '/')? '[^\/]':
+            ('(?!(?:\/|' . addslashes(DIRECTORY_SEPARATOR) . '))');
+    $path = preg_replace("/$sep_re\\.$sep_re/", '/', $path);
+    $path = preg_replace("/$not_sep_re+$sep_re\\.\\.$sep_re($not_sep_re+)/", '$1',
+            $path);
+    $path = preg_replace("/^\.$sep_re+/", '', $path);
+    print "\n\npath=($path)\n";
+    return ($path);
+}
+
 ?>

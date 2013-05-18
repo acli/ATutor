@@ -112,4 +112,28 @@ class LibModule_at_include_path_from_standard_TestCase extends UnitTestCase {
 
 }
 
+class LibModule_compose_path_TestCase extends UnitTestCase {
+
+    function test__compose_path__1() {
+        $this->assertEqual(compose_path('foo', 'bar'), 'foo/bar');
+    }
+
+    function test__compose_path__2() {
+        $this->assertEqual(compose_path('foo/bar', 'baz'), 'foo/bar/baz');
+    }
+
+    function test__compose_path__3() {
+        $this->assertEqual(compose_path('foo/bar/', 'baz'), 'foo/bar/baz');
+    }
+
+    function test__compose_path__4() {
+        $this->assertEqual(compose_path('foo/./', 'bar'), 'foo/bar');
+    }
+
+    function test__compose_path__5() {
+        $this->assertEqual(compose_path('foo/bar/../', 'baz'), 'foo/baz');
+    }
+
+}
+
 ?>

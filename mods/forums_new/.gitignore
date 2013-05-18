@@ -1,3 +1,5 @@
 .*.swp
 composer.phar
+simpletest
+simpletest.tar.gz
 vendor

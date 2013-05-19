@@ -13,7 +13,7 @@
 // $Id$
 
 if (!defined('AT_INCLUDE_PATH')) { exit; }
-if (!defined('MODULE_DIR')) { exit; }
+if (!defined('MODULE_DIR')) { print "You forgot lib/module.inc.php"; exit; }
 
 /**
 * Returns an array of (shared and non-shared) forums belonging to the given course

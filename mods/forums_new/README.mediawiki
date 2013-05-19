@@ -14,8 +14,7 @@ In addition, the directory path is also hard-coded in several places,
 including:
 
 * module.php (THROUGHOUT THE WHOLE FILE)
-* module_news.php (inside forums_new_news()
-or forums_news() when it’s moved back)
+* module_news.php (inside forums_new_news() or forums_news() when it’s moved back)
 * dropdown/posts.inc.php
 * and throughout the whole code base
 

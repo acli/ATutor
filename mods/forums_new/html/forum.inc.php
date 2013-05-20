@@ -10,7 +10,7 @@
 /* as published by the Free Software Foundation.                        */
 /************************************************************************/
 if (!defined('AT_INCLUDE_PATH')) { exit; }
-if (!defined('AT_MODULE_ROOT')) { print "You forgot lib/module.inc.php"; exit; }
+if (!defined('AT_MODULE_ROOT')) { print "You forgot AT_MODULE_ROOT"; exit; }
 
 include_once(AT_MODULE_ROOT.'lib/layout.inc.php');
 

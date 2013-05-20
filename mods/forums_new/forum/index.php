@@ -22,7 +22,7 @@ if (!isset($_GET['fid']) || !$fid) {
     header('Location: list.php');
     exit;
 }
-require(AT_INCLUDE_PATH."../$forums_d/lib/forums.inc.php");
+require(AT_MODULE_ROOT."lib/forums.inc.php");
 
 if (!valid_forum_user($fid)) {
     require(AT_INCLUDE_PATH.'header.inc.php');
@@ -59,7 +59,7 @@ if ($_SESSION['valid_user'] === true && $_SESSION['enroll']) {
 
 require(AT_INCLUDE_PATH . 'header.inc.php');
 
-require(AT_INCLUDE_PATH . '../mods/_standard/forums/html/forum.inc.php');
+require(AT_MODULE_ROOT . 'html/forum.inc.php');
 
 require(AT_INCLUDE_PATH . 'footer.inc.php');
 ?>

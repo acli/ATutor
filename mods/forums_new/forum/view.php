@@ -26,6 +26,7 @@ if (!isset($_GET['fid']) || !$fid) {
     exit;
 }
 
+require(AT_INCLUDE_PATH."../$forums_d/lib/layout.inc.php"); // number_of_pages
 require(AT_INCLUDE_PATH."../$forums_d/lib/forums.inc.php"); // for print_entry et al
 
 if (!valid_forum_user($fid)) {
@@ -67,7 +68,7 @@ if ($_REQUEST['reply']) {
 
 $pid = intval($_GET['pid']);
 
-$num_per_page = 10;
+$num_per_page = 2;//XYZZY 10;
 if (!$_GET['page']) {
     $page = 1;
 } else {
@@ -111,8 +112,10 @@ require(AT_INCLUDE_PATH.'header.inc.php');
         }
     }
     
-    $num_threads = $post_row['num_comments']+1;
-    $num_pages = ceil($num_threads/$num_per_page);
+    // The original post appears on every page and therefore should be
+    // excluded from the calculations; we should look at just the comments
+    $num_pages = number_of_pages($post_row['num_comments'], $num_per_page);
+
     $locked = $post_row['locked'];
     if ($locked == 1) {
         echo '<p><strong>'._AT('lock_no_read1').'</strong></p>';

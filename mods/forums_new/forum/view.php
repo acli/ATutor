@@ -36,10 +36,6 @@ if (!valid_forum_user($fid)) {
     exit;
 }
 
-// Configurable parameters
-
-$num_per_page = 10; // Number of items per page (normally 10)
-
 // set default thread display order to ascending
 if (!isset($_SESSION['thread_order']))
 {
@@ -71,6 +67,8 @@ if ($_REQUEST['reply']) {
 }
 
 $pid = intval($_GET['pid']);
+
+$num_per_page = NUM_PER_PAGE;
 
 /* get the first thread first */
 $sql    = "SELECT *, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') AS date, UNIX_TIMESTAMP(date) AS udate FROM ".TABLE_PREFIX."forums_threads WHERE post_id=$pid AND forum_id=$fid";

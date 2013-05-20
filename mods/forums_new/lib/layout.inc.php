@@ -14,6 +14,8 @@
 /* To run tests please run run_tests.sh                                 */
 /************************************************************************/
 
+define('NUM_PER_PAGE', 10);     // forum/view.php, html/forum.inc.php
+
 /*
  * Calculates the number of pages required to display the given number of items
  * given the desired number of items per page.

@@ -15,13 +15,13 @@ if (!defined('AT_MODULE_ROOT')) { print "You forgot lib/module.inc.php"; exit; }
 include_once(AT_MODULE_ROOT.'lib/layout.inc.php');
 
 $mods_forums = MODULE_DIR;
+$num_per_page = NUM_PER_PAGE;
 
 $sql    = "SELECT COUNT(*) AS cnt FROM ".TABLE_PREFIX."forums_threads WHERE parent_id=0 AND forum_id=$fid";
 $result = mysql_query($sql, $db);
 $num_threads = mysql_fetch_assoc($result);
 $num_threads = $num_threads['cnt'];
 
-$num_per_page = 10;
 if (!isset($_GET['page']) || !$_GET['page']) {
     $page = 1;
 } else {

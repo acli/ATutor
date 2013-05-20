@@ -26,8 +26,8 @@ if (!isset($_GET['fid']) || !$fid) {
     exit;
 }
 
-require(AT_INCLUDE_PATH."../$forums_d/lib/layout.inc.php"); // number_of_pages
-require(AT_INCLUDE_PATH."../$forums_d/lib/forums.inc.php"); // for print_entry et al
+require(AT_MODULE_ROOT."/lib/layout.inc.php"); // number_of_pages
+require(AT_MODULE_ROOT."/lib/forums.inc.php"); // for print_entry et al
 
 if (!valid_forum_user($fid)) {
     require(AT_INCLUDE_PATH.'header.inc.php');

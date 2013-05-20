@@ -10,8 +10,11 @@
 /* as published by the Free Software Foundation.                        */
 /************************************************************************/
 if (!defined('AT_INCLUDE_PATH')) { exit; }
+if (!defined('AT_MODULE_ROOT')) { print "You forgot lib/module.inc.php"; exit; }
 
-include_once('lib/layout.inc.php');
+include_once(AT_MODULE_ROOT.'lib/layout.inc.php');
+
+$mods_forums = MODULE_DIR;
 
 $sql    = "SELECT COUNT(*) AS cnt FROM ".TABLE_PREFIX."forums_threads WHERE parent_id=0 AND forum_id=$fid";
 $result = mysql_query($sql, $db);
@@ -133,7 +136,7 @@ if (!($row = mysql_fetch_assoc($result))) {
         }
         
         if ($row['locked'] != 1) {
-                echo '<a href="'.url_rewrite('mods/_standard/forums/forum/view.php?fid='.$fid.SEP.'pid='.$row['post_id']).'" title="'.AT_print($full_subject, 'forums_threads.subject').'">'.$row['subject'].'</a>';
+                echo '<a href="'.url_rewrite($mods_forums.'/forum/view.php?fid='.$fid.SEP.'pid='.$row['post_id']).'" title="'.AT_print($full_subject, 'forums_threads.subject').'">'.$row['subject'].'</a>';
 
             if ($row['locked'] == 2) {
                 echo ' <i class="spacer">('._AT('post_lock').')</i>';
@@ -148,7 +151,7 @@ if (!($row = mysql_fetch_assoc($result))) {
         if ($num_pages_2 > 1) {
             echo ' <small class="spacer">( Page: ';
             for ($i=2; $i<=$num_pages_2; $i++) {
-                echo '<a href="'.url_rewrite('mods/_standard/forums/forum/view.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'page='.$i).'" title="'.AT_print($full_subject, 'forums_threads.subject').'">'.$i.'</a>';
+                echo '<a href="'.url_rewrite($mods_forums.'/forum/view.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'page='.$i).'" title="'.AT_print($full_subject, 'forums_threads.subject').'">'.$i.'</a>';
 
                 if ($i<$num_pages_2){
                     echo ' | ';
@@ -158,9 +161,9 @@ if (!($row = mysql_fetch_assoc($result))) {
         }
         if ($_SESSION['enroll'] && !$row['locked']) {
             if (isset($last_accessed[$row['post_id']]) && $last_accessed[$row['post_id']]['subscribe']){
-                echo  ' <br /><small><a href="mods/_standard/forums/forum/subscribe.php?us=1'.SEP.'pid='.$row['post_id'].SEP.'fid='.$fid.SEP.'t=1">('._AT('unsubscribe1').')</a></small>';
+                echo  ' <br /><small><a href="'.$mods_forums.'/forum/subscribe.php?us=1'.SEP.'pid='.$row['post_id'].SEP.'fid='.$fid.SEP.'t=1">('._AT('unsubscribe1').')</a></small>';
             } else {
-                echo  ' <br /><small><a href="mods/_standard/forums/forum/subscribe.php?pid='.$row['post_id'].SEP.'fid='.$fid.SEP.'t=1">('._AT('subscribe1').')</a></small>';
+                echo  ' <br /><small><a href="'.$mods_forums.'/forum/subscribe.php?pid='.$row['post_id'].SEP.'fid='.$fid.SEP.'t=1">('._AT('subscribe1').')</a></small>';
             }
         }
         echo '</td>';
@@ -175,16 +178,16 @@ if (!($row = mysql_fetch_assoc($result))) {
 
         if (authenticate(AT_PRIV_FORUMS, AT_PRIV_RETURN)) {
             echo '<td nowrap="nowrap"  align="right" width:10%;>';
-            echo ' <a href="mods/_standard/forums/forum/stick.php?fid='.$fid.SEP.'pid='.$row['post_id'].'"><img src="images/forum/sticky.gif" border="0" alt="'._AT('sticky_thread').'" title="'._AT('sticky_thread').'" /></a> ';
+            echo ' <a href="'.$mods_forums.'/forum/stick.php?fid='.$fid.SEP.'pid='.$row['post_id'].'"><img src="images/forum/sticky.gif" border="0" alt="'._AT('sticky_thread').'" title="'._AT('sticky_thread').'" /></a> ';
 
             if ($row['locked'] != 0) {
-                echo '<a href="mods/_standard/forums/forum/lock_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'unlock='.$row['locked'].'"><img src="images/unlock.gif" border="0"  alt="'._AT('unlock_thread').'" title="'._AT('unlock_thread').'"/></a>';
+                echo '<a href="'.$mods_forums.'/forum/lock_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'unlock='.$row['locked'].'"><img src="images/unlock.gif" border="0"  alt="'._AT('unlock_thread').'" title="'._AT('unlock_thread').'"/></a>';
             } else {
-                echo '<a href="mods/_standard/forums/forum/lock_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].'"><img src="images/lock.gif" border="0" alt="'._AT('lock_thread').'"   title="'._AT('lock_thread').'"/></a>';
+                echo '<a href="'.$mods_forums.'/forum/lock_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].'"><img src="images/lock.gif" border="0" alt="'._AT('lock_thread').'"   title="'._AT('lock_thread').'"/></a>';
             }
-            echo ' <a href="mods/_standard/forums/forum/move_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'ppid=0"><img src="images/forum/move.gif" border="0" alt="'._AT('move_thread').'" title="'._AT('move_thread').'"/></a>';
+            echo ' <a href="'.$mods_forums.'/forum/move_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'ppid=0"><img src="images/forum/move.gif" border="0" alt="'._AT('move_thread').'" title="'._AT('move_thread').'"/></a>';
 
-            echo ' <a href="mods/_standard/forums/forum/delete_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'ppid=0"><img src="images/icon_delete.gif" border="0" alt="'._AT('delete_thread').'" title="'._AT('delete_thread').'"/></a>';
+            echo ' <a href="'.$mods_forums.'/forum/delete_thread.php?fid='.$fid.SEP.'pid='.$row['post_id'].SEP.'ppid=0"><img src="images/icon_delete.gif" border="0" alt="'._AT('delete_thread').'" title="'._AT('delete_thread').'"/></a>';
             
             echo '</td>';
         }

@@ -36,6 +36,10 @@ if (!valid_forum_user($fid)) {
     exit;
 }
 
+// Configurable parameters
+
+$num_per_page = 10; // Number of items per page (normally 10)
+
 // set default thread display order to ascending
 if (!isset($_SESSION['thread_order']))
 {
@@ -68,7 +72,6 @@ if ($_REQUEST['reply']) {
 
 $pid = intval($_GET['pid']);
 
-$num_per_page = 2;//XYZZY 10;
 if (!$_GET['page']) {
     $page = 1;
 } else {
@@ -112,8 +115,6 @@ require(AT_INCLUDE_PATH.'header.inc.php');
         }
     }
     
-    // The original post appears on every page and therefore should be
-    // excluded from the calculations; we should look at just the comments
     $num_pages = number_of_pages($post_row['num_comments'], $num_per_page);
 
     $locked = $post_row['locked'];

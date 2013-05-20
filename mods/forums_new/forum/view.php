@@ -72,13 +72,6 @@ if ($_REQUEST['reply']) {
 
 $pid = intval($_GET['pid']);
 
-if (!$_GET['page']) {
-    $page = 1;
-} else {
-    $page = (intval($_GET['page'])>0)?(intval($_GET['page'])):1;
-}
-$start = ($page-1)*$num_per_page;
-    
 /* get the first thread first */
 $sql    = "SELECT *, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') AS date, UNIX_TIMESTAMP(date) AS udate FROM ".TABLE_PREFIX."forums_threads WHERE post_id=$pid AND forum_id=$fid";
 $result = mysql_query($sql, $db);
@@ -115,7 +108,25 @@ require(AT_INCLUDE_PATH.'header.inc.php');
         }
     }
     
+    /*
+     * Determine the number of pages, and then use that to constrain the page
+     * number (one-based) that we got from the CGI query. Then we use the page
+     * number to arrive at a comment number (zero-based) for use in our SQL
+     * queries. The original post in the thread is not counted as one of the
+     * $num_per_page items on the page.
+     */
     $num_pages = number_of_pages($post_row['num_comments'], $num_per_page);
+    if (!$_GET['page']) {
+        $page = 1;
+    } else {
+        $page = intval($_GET['page']);
+        if ($page < 1) {
+            $page = 1;
+        } elseif ($page > $num_pages) {
+            $page = $num_pages;
+        }
+    }
+    $start = ($page-1)*$num_per_page;
 
     $locked = $post_row['locked'];
     if ($locked == 1) {

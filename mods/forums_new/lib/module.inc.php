@@ -50,7 +50,6 @@ function compose_path() {
         }
         $path .= $subpath;
     }
-    print "\n\npath=($path)\n";
     $sep_re = (DIRECTORY_SEPARATOR == '/')? '\/':
             ('(?:(?:\/|' . addslashes(DIRECTORY_SEPARATOR) . '))');
     $not_sep_re = (DIRECTORY_SEPARATOR == '/')? '[^\/]':
@@ -59,7 +58,6 @@ function compose_path() {
     $path = preg_replace("/$not_sep_re+$sep_re\\.\\.$sep_re($not_sep_re+)/", '$1',
             $path);
     $path = preg_replace("/^\.$sep_re+/", '', $path);
-    print "\n\npath=($path)\n";
     return ($path);
 }
 

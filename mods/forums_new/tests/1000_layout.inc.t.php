@@ -37,6 +37,30 @@ class LibLayoutTestCase extends UnitTestCase {
         $this->assertEqual(number_of_pages(11, 10), 2);
     }
 
+    /*
+     * To simulate the behaviour of the original forums module, forum/view.php
+     * should be able to tell us that there is a static element (the original
+     * post) that should be included in the calculations. In the original
+     * forums code the number of static elements was under-counted and the
+     * items per page count was misused; we need to avoid both.
+     */
+
+    function test__number_of_pages_given_1_item_with_1_static_item_should_be_1() {
+        $this->assertEqual(number_of_pages(1, 10, 1), 1);
+    }
+
+    function test__number_of_pages_given_9_items_with_1_static_item_should_be_1() {
+        $this->assertEqual(number_of_pages(9, 10, 1), 1);
+    }
+
+    function test__number_of_pages_given_10_items_with_1_static_item_should_be_2() {
+        $this->assertEqual(number_of_pages(10, 10, 1), 2);
+    }
+
+    /*
+     * These test cases, together with the corresponding function, are not
+     * really useful and so they are probably going to be scrapped soon.
+     */
     function test__starting_item_number_for_page_1_should_be_1() {
         $this->assertEqual(starting_item_number(1, 10), 1);
     }

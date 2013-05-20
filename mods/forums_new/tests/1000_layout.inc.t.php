@@ -57,6 +57,11 @@ class LibLayoutTestCase extends UnitTestCase {
         $this->assertEqual(number_of_pages(10, 10, 1), 2);
     }
 
+    function test__number_of_pages_given_10_items_with_1_static_item_2_items_per_page_should_be_2() {
+        // |(k, 1), (k, 2), (k, 3), (k, 4),..., (k, 10)| = 10
+        $this->assertEqual(number_of_pages(10, 2, 1), 10);
+    }
+
     /*
      * These test cases, together with the corresponding function, are not
      * really useful and so they are probably going to be scrapped soon.

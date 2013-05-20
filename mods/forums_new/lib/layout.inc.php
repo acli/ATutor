@@ -20,12 +20,17 @@
  *
  * @param   integer  $number_of_items
  * @param   integer  $items_per_page
+ * @param   integer  $number_of_static_items_per_page
  * @return  integer  $number_of_pages
  * @access  public
  */
 
-function number_of_pages( $number_of_items, $items_per_page ) {
-    return (int)floor(($number_of_items - 1)/$items_per_page) + 1;
+function number_of_pages( $number_of_items, $items_per_page,
+        $number_of_static_items_per_page = 0 ) {
+
+    return (int)floor(($number_of_items - 1)
+                    /
+            ($items_per_page - $number_of_static_items_per_page)) + 1;
 } /* number_of_pages */
 
 /*

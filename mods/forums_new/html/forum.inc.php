@@ -146,7 +146,7 @@ if (!($row = mysql_fetch_assoc($result))) {
         }
 
         /* print page numbers */
-        $num_pages_2 = number_of_pages($row['num_comments']+1, $num_per_page);
+        $num_pages_2 = number_of_pages($row['num_comments'], $num_per_page);
 
         if ($num_pages_2 > 1) {
             echo ' <small class="spacer">( Page: ';

@@ -31,7 +31,7 @@ $this->_tool[$id] = array(
     'file'      => 'mods/_core/tool_manager/forums_tool.php',
 );
 
-// Instructor pages - 'parent' must be set for these to work
+// Instructor pages - 'parent' must be set to tools/index.php for these to work
 $this->_pages["$dir/index.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/index.php"]['parent']    = 'tools/index.php';
 $this->_pages["$dir/index.php"]['guide']     = 'instructor/?p=forums.php';

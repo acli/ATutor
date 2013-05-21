@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -10,52 +10,63 @@
 /* modify it under the terms of the GNU General Public License  */
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
-// $Id$
 
 $fid  = intval($_REQUEST['fid']);
- 
 if ($fid == 0) {
     $fid  = intval($_GET['fid']);
 }
-define('AT_INCLUDE_PATH', '../../../../include/');
+
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = MODULE_DIR;
 
 authenticate(AT_PRIV_FORUMS);
 
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['title']    = get_forum_name($fid);
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['parent']   = 'mods/_standard/forums/forum/list.php';
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['children'] = array('mods/_standard/forums/forum/new_thread.php?fid='.$fid);
+$_pages["$forums_d/forum/index.php?fid=$fid"]['title']    = get_forum_name($fid);
+$_pages["$forums_d/forum/index.php?fid=$fid"]['parent']   = "$forums_d/forum/list.php";
+$_pages["$forums_d/forum/index.php?fid=$fid"]['children'] = array(
+    "$forums_d/forum/new_thread.php?fid=$fid"
+);
 
-$_pages['mods/_standard/forums/forum/new_thread.php?fid='.$fid]['title_var'] = 'new_thread';
-$_pages['mods/_standard/forums/forum/new_thread.php?fid='.$fid]['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['title_var'] = 'new_thread';
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
 
-$_pages['mods/_standard/forums/forum/view.php']['title']  = $post_row['subject'];
-$_pages['mods/_standard/forums/forum/view.php']['parent'] = 'mods/_standard/forums/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/view.php"]['title']  = $post_row['subject'];
+$_pages["$forums_d/forum/view.php"]['parent'] = "$forums_d/forum/index.php?fid=$fid";
 
-$_pages['mods/_standard/forums/forum/lock_thread.php']['title_var'] = 'lock_thread';
-$_pages['mods/_standard/forums/forum/lock_thread.php']['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/lock_thread.php"]['title_var'] = 'lock_thread';
+$_pages["$forums_d/forum/lock_thread.php"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
+
+$table_prefix = TABLE_PREFIX;
+$at_base_href = AT_BASE_HREF;
 
 if (isset($_POST['cancel'])) {
     $msg->addFeedback('CANCELLED');
-    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/forum/index.php?fid='.$fid);
+    header('Location: '.AT_BASE_HREF."$forums_d/forum/index.php?fid=$fid");
     exit;
 } else if (isset($_POST['submit'])) {
     $_POST['lock'] = intval($_POST['lock']);
     $_POST['pid']  = intval($_POST['pid']);
     $_POST['fid']  = intval($_POST['fid']);
 
-    $sql    = "UPDATE ".TABLE_PREFIX."forums_threads SET locked=$_POST[lock], last_comment=last_comment, date=date WHERE post_id=$_POST[pid]";
+    $sql = <<<EOT
+UPDATE {$table_prefix}forums_threads
+   SET locked=$_POST[lock],
+       last_comment=last_comment,
+       date=date
+ WHERE post_id=$_POST[pid]
+EOT;
     $result = mysql_query($sql, $db);
 
     if($_POST['lock'] == '1' || $_POST['lock'] == '2'){
         $msg->addFeedback('THREAD_LOCKED');
-        header('Location: '.AT_BASE_HREF.'mods/_standard/forums/forum/index.php?fid='.$fid);
-        exit;
     } else {
         $msg->addFeedback('THREAD_UNLOCKED');
-        header('Location: '.AT_BASE_HREF.'mods/_standard/forums/forum/index.php?fid='.$fid);
-        exit;
     }
+    header("Location: $at_base_href$forums_d/forum/index.php?fid=$fid");
+    exit;
 }
 
 require(AT_INCLUDE_PATH.'header.inc.php');

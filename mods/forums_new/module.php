@@ -31,10 +31,8 @@ $this->_tool[$id] = array(
     'file'      => 'mods/_core/tool_manager/forums_tool.php',
 );
 
-// Instructor pages
-$this->_pages["$dir/index_instructor.php"]['title_var'] = $id;
-$this->_pages["$dir/index_instructor.php"]['parent']    = 'tools/index.php';
-$this->_pages["$dir/index.php"]['title_var'] = $id;
+// Instructor pages - 'parent' must be set for these to work
+$this->_pages["$dir/index.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/index.php"]['parent']    = 'tools/index.php';
 $this->_pages["$dir/index.php"]['guide']     = 'instructor/?p=forums.php';
 $this->_pages["$dir/index.php"]['children']  = array("$dir/add_forum.php");
@@ -48,8 +46,8 @@ $this->_pages["$dir/delete_forum.php"]['parent'] = "$dir/forums/index.php";
 $this->_pages["$dir/edit_forum.php"]['title_var'] = 'edit_forum';
 $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
 
-// Student pages
-$this->_pages["$dir/forum/list.php"]['title_var'] = $id;
+// Student pages - 'parent' should not be set
+$this->_pages["$dir/forum/list.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/forum/list.php"]['img']       = 'images/home-forums.png';
 $this->_pages["$dir/forum/list.php"]['icon']      = 'images/pin.png';       //added favicon
 $this->_pages["$dir/forum/list.php"]['text']      = 'Sezione Forum';                //added text

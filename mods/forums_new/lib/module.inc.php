@@ -37,6 +37,7 @@ function at_include_path_from( $module_root ) {
 
 /*
  * Concatenate the given subpaths and eliminate . and .. segments.
+ * Slashes are automatically inserted between segments.
  *
  * @return  string  $path
  */
@@ -55,8 +56,8 @@ function compose_path() {
     $not_sep_re = (DIRECTORY_SEPARATOR == '/')? '[^\/]':
             ('(?!(?:\/|' . addslashes(DIRECTORY_SEPARATOR) . '))');
     $path = preg_replace("/$sep_re\\.$sep_re/", '/', $path);
-    $path = preg_replace("/$not_sep_re+$sep_re\\.\\.$sep_re($not_sep_re+)/", '$1',
-            $path);
+    $path = preg_replace("/$not_sep_re+$sep_re\\.\\.$sep_re($not_sep_re+)/",
+            '$1', $path);
     $path = preg_replace("/^\.$sep_re+/", '', $path);
     return ($path);
 }

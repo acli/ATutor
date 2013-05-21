@@ -23,10 +23,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <table class="data static" summary="" rules="rows">
 <thead>
 <tr>
-    <th scope="col"><?php echo _AT('forum');        ?></th>
+    <th scope="col"><?php echo _AT('forum');       ?></th>
     <th scope="col"><?php echo _AT('num_threads'); ?></th>
-    <th scope="col"><?php echo _AT('num_posts');    ?></th>
-    <th scope="col"><?php echo _AT('last_post');    ?></th>
+    <th scope="col"><?php echo _AT('num_posts');   ?></th>
+    <th scope="col"><?php echo _AT('last_post');   ?></th>
 </tr>
 </thead>
 <?php

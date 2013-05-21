@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -11,9 +11,12 @@
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
-include(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+include(AT_MODULE_ROOT.'lib/forums.inc.php');
+$forums_d = MODULE_DIR;
 
 authenticate(AT_PRIV_FORUMS);
 
@@ -99,19 +102,21 @@ if (isset($_POST['submit_no'])) {
     }
 }
 
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['title']    = get_forum_name($fid);
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['parent']   = 'forum/list.php';
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['children'] = array('mods/_standard/forums/forum/new_thread.php?fid='.$fid);
+$_pages["$forums_d/forum/index.php?fid=$fid"]['title']    = get_forum_name($fid);
+$_pages["$forums_d/forum/index.php?fid=$fid"]['parent']   = 'forum/list.php';
+$_pages["$forums_d/forum/index.php?fid=$fid"]['children'] = array(
+    "$forums_d/forum/new_thread.php?fid=$fid",
+);
 
-$_pages['mods/_standard/forums/forum/new_thread.php?fid='.$fid]['title_var'] = 'new_thread';
-$_pages['mods/_standard/forums/forum/new_thread.php?fid='.$fid]['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['title_var'] = 'new_thread';
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
 
-$_pages['mods/_standard/forums/forum/view.php']['title']  = $post_row['subject'];
-$_pages['mods/_standard/forums/forum/view.php']['parent'] = 'forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/view.php"]['title']  = $post_row['subject'];
+$_pages["$forums_d/forum/view.php"]['parent'] = 'forum/index.php?fid='.$fid;
 
-$_pages['mods/_standard/forums/forum/delete_thread.php']['title_var'] = 'delete_post';
-$_pages['mods/_standard/forums/forum/delete_thread.php']['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$fid;
-$_pages['mods/_standard/forums/forum/delete_thread.php']['children']  = array();
+$_pages["$forums_d/forum/delete_thread.php"]['title_var'] = 'delete_post';
+$_pages["$forums_d/forum/delete_thread.php"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
+$_pages["$forums_d/forum/delete_thread.php"]['children']  = array();
 
 require(AT_INCLUDE_PATH.'header.inc.php');
 

@@ -99,8 +99,10 @@ if ($_POST['edit_post']) {
 }
 
 $_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['title']    = $forum_info['title'];
-$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['parent']   = 'mods/_standard/forums/forum/list.php';
-$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['children'] = array('mods/_standard/forums/forum/new_thread.php?fid='.$fid);
+$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['parent']   = "$forums_d/forum/list.php";
+$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['children'] = array(
+    "$forums_d/forum/new_thread.php?fid=$fid"
+);
 
 $_pages[MODULE_DIR.'/forum/new_thread.php?fid='.$fid]['title_var'] = 'new_thread';
 $_pages[MODULE_DIR.'/forum/new_thread.php?fid='.$fid]['parent']    = MODULE_DIR.'/forum/index.php?fid='.$fid;

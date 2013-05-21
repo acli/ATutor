@@ -783,8 +783,7 @@ if (mysql_num_rows($result) > 0) {
 
 <a name="navigation"></a>
 <h2>Navigation &amp; Hierarchy</h2>
-<p><strong>FIXME: This section is seriously out of date and should not be trusted without first tracing ATutor&rsquo;s code. There is no <kbd>$_module_pages</kbd> array anywhere in this version of ATutor.</strong>
-	<p><em>Every</em> page in ATutor must have an entry in the global <kbd>$_pages</kbd> array where the key to the array is the relative path to the file from ATutor's base directory. Module pages are specified using the <kbd>$_module_pages</kbd> array, which are then merged into the <kbd>$_pages</kbd> array when the <kbd>module.php</kbd> file is loaded. The array supports the following attributes:</p>
+	<p><em>Every</em> page in ATutor must have an entry in the global <kbd>$_pages</kbd> array where the key to the array is the relative path to the file from ATutor's base directory. Module pages are specified using the <kbd>$this->_pages</kbd> array, which are then merged into the <kbd>$_pages</kbd> array when the <kbd>module.php</kbd> file is loaded. The array supports the following attributes:</p>
 
 	<dl>
 		<dt><kbd>title_var</kbd></dt>
@@ -812,19 +811,19 @@ if (mysql_num_rows($result) > 0) {
 $path = 'mods/example_maker/';
 
 // the student tool:
-$_module_pages[$path.'index.php']['title_var'] = 'example_maker';
-$_module_pages[$path.'index.php']['img']       = $path.'icon.gif';
-$_module_pages[$path.'index.php']['children']  = array($path.'sub.php', $path.'more.php');
+$this->_pages[$path.'index.php']['title_var'] = 'example_maker';
+$this->_pages[$path.'index.php']['img']       = $path.'icon.gif';
+$this->_pages[$path.'index.php']['children']  = array($path.'sub.php', $path.'more.php');
 
-    $_module_pages[$path.'sub.php']['title_var'] = 'sub_page';
-    $_module_pages[$path.'sub.php']['parent']    = $path.'index.php';
+    $this->_pages[$path.'sub.php']['title_var'] = 'sub_page';
+    $this->_pages[$path.'sub.php']['parent']    = $path.'index.php';
 
-    $_module_pages[$path.'more.php']['title_var'] = 'more_page';
-    $_module_pages[$path.'more.php']['parent']    = $path.'index.php';
+    $this->_pages[$path.'more.php']['title_var'] = 'more_page';
+    $this->_pages[$path.'more.php']['parent']    = $path.'index.php';
 
 // the instructor page:
-$_module_pages[$path . 'inst_index.php']['title_var'] = 'example_maker';
-$_module_pages[$path . 'inst_index.php']['parent']    = 'tools/index.php';
+$this->_pages[$path . 'inst_index.php']['title_var'] = 'example_maker';
+$this->_pages[$path . 'inst_index.php']['parent']    = 'tools/index.php';
 </pre>
 <a name="delete"></a>
 <h2>Course Deletion</h2>

@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -10,21 +10,25 @@
 /* modify it under the terms of the GNU General Public License  */
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
-// $Id$
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
-require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+require(AT_MODULE_ROOT.'lib/forums.inc.php');
+$forums_d = MODULE_DIR;
 
 $fid = intval($_REQUEST['fid']);
 $_POST['parent_id'] = intval($_REQUEST['parent_id']);
 
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['title']    = get_forum_name($fid);
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['parent']   = 'mods/_standard/forums/forum/list.php';
-$_pages['mods/_standard/forums/forum/index.php?fid='.$fid]['children'] = array('mods/_standard/forums/forum/new_thread.php');
+$_pages["$forums_d/forum/index.php?fid=$fid"]['title']    = get_forum_name($fid);
+$_pages["$forums_d/forum/index.php?fid=$fid"]['parent']   = "$forums_d/forum/list.php";
+$_pages["$forums_d/forum/index.php?fid=$fid"]['children'] = array(
+    "$forums_d/forum/new_thread.php"
+);
 
-$_pages['mods/_standard/forums/forum/new_thread.php']['title_var'] = 'new_thread';
-$_pages['mods/_standard/forums/forum/new_thread.php']['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/new_thread.php"]['title_var'] = 'new_thread';
+$_pages["$forums_d/forum/new_thread.php"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
 
 if (!valid_forum_user($fid) || !$_SESSION['enroll']) {
     $msg->addError('FORUM_DENIED');
@@ -36,7 +40,7 @@ if (!valid_forum_user($fid) || !$_SESSION['enroll']) {
 
 if (isset($_POST['cancel'])) {
     $msg->addFeedback('CANCELLED');
-    header('Location: '.url_rewrite('mods/_standard/forums/forum/index.php?fid='.$fid, AT_PRETTY_URL_IS_HEADER));
+    header('Location: '.url_rewrite("$forums_d/forum/index.php?fid=$fid", AT_PRETTY_URL_IS_HEADER));
     exit;
 } else if (isset($_POST['submit'])) {
     $missing_fields = array();
@@ -44,6 +48,7 @@ if (isset($_POST['cancel'])) {
     if ($_POST['subject'] == '')  {
         $missing_fields[] = _AT('subject');
     } else {
+        // FIXME - hard-coded constant
         //60 was set by db
         $_POST['subject'] = validate_length($_POST['subject'], 60);
     }
@@ -70,7 +75,7 @@ if (isset($_POST['cancel'])) {
                 $_POST['body'] .= '[/reply]';
             }
 
-            $_POST['body'] .= "\n".'[op]mods/_standard/forums/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['parent_id'].SEP.'page='.$_POST['page'].'#'.$_POST['reply'];
+            $_POST['body'] .= "\n[op]$forums_d/forum/view.php?fid=".$_POST['fid'].SEP.'pid='.$_POST['parent_id'].SEP.'page='.$_POST['page'].'#'.$_POST['reply'];
             $_POST['body'] .= '[/op][/reply]';
         }
 
@@ -137,7 +142,7 @@ if (isset($_POST['cancel'])) {
             foreach ($subscriber_email_list as $subscriber){
                 $mail = new ATutorMailer;
                 $mail->AddAddress($subscriber['email'], get_display_name($subscriber['member_id']));
-                $body = _AT('forum_new_submsg', $_SESSION['course_title'],  get_forum_name($_POST['fid']), $_POST['parent_name'],  AT_BASE_HREF.'mods/_standard/forums/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['parent_id']);
+                $body = _AT('forum_new_submsg', $_SESSION['course_title'],  get_forum_name($_POST['fid']), $_POST['parent_name'],  AT_BASE_HREF.$forums_d.'/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['parent_id']);
                 $body .= "\n----------------------------------------------\n";
                 $body .= _AT('course').': '.$_SESSION['course_title']."\n";
                 $body .= _AT('forum').': '.get_forum_name($_POST['fid'])."\n";
@@ -182,7 +187,7 @@ if (isset($_POST['cancel'])) {
         }
 
         $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
-        header('Location: '.url_rewrite('mods/_standard/forums/forum/view.php?fid='.$fid.SEP.'pid='.$_POST['parent_id'].SEP.'page='.$_POST['page'], AT_PRETTY_URL_IS_HEADER));
+        header('Location: '.url_rewrite($forums_d.'/forum/view.php?fid='.$fid.SEP.'pid='.$_POST['parent_id'].SEP.'page='.$_POST['page'], AT_PRETTY_URL_IS_HEADER));
         exit;
     }
 }
@@ -193,7 +198,7 @@ require(AT_INCLUDE_PATH.'header.inc.php');
     
 $parent_id = 0;
 $new_thread = TRUE;
-require(AT_INCLUDE_PATH.'../mods/_standard/forums/html/new_thread.inc.php');
+require(AT_MODULE_ROOT.'html/new_thread.inc.php');
 require(AT_INCLUDE_PATH.'footer.inc.php');
 
 ?>

@@ -29,7 +29,7 @@ if (isset($_GET['edit'], $_GET['id'])) {
     $msg->addError('NO_ITEM_SELECTED');
 }
 
-require(compose_path(AT_INCLUDE_PATH, '..', MODULE_DIR, 'lib/forums.inc.php'));
+require(AT_MODULE_ROOT.'lib/forums.inc.php');
 
 require(AT_INCLUDE_PATH.'header.inc.php');
 

@@ -29,7 +29,7 @@ if (isset($_GET['pid'])) {
 }
 if (!$pid || !$fid || !valid_forum_user($fid)) {
     $msg->addError('ITEM_NOT_FOUND');
-    header('Location: ../../../forum/list.php');
+    header('Location: forum/list.php');
     exit;
 }
 

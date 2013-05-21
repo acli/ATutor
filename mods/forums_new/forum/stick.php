@@ -21,14 +21,7 @@ authenticate(AT_PRIV_FORUMS);
 
 $pid = intval($_GET['pid']);
 
-/*
- * NOTE: "1-sticky" emulates a NOT operation (if 1 then 0, if 0 then 1).
- * The original code used ABS(sticky-1), but within the valid range of 0 and 1
- * the simpler and more idiomatic formula "1-sticky" works just as well.
- * When out of range, both formulas give the wrong results and at the invalid
- * value of -9999 both cause overflow errors, so none is better than the other.
- */
-$sql    = "UPDATE ".TABLE_PREFIX."forums_threads SET sticky=1-sticky, last_comment=last_comment, date=date WHERE post_id=$pid";
+$sql = "UPDATE ".TABLE_PREFIX."forums_threads SET sticky=CASE sticky WHEN 1 THEN 0 ELSE 1 END, last_comment=last_comment, date=date WHERE post_id=$pid";
 $result = mysql_query($sql, $db);
 
 $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');

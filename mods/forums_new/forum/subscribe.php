@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -11,7 +11,9 @@
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
 require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
 
@@ -39,7 +41,8 @@ $thread_name = $row['subject'];
 
 /**
  * Protect against url injection
- * Maintain consistency in data by not allowing any subscription to a reply thread, only top level id's (0).
+ * Maintain consistency in data by not allowing any subscription to a reply
+ * thread, only top level id's (0).
  */
  $sql = "SELECT parent_id FROM " . TABLE_PREFIX."forums_threads WHERE post_id=$pid AND forum_id=$fid";
  $result = mysql_query($sql, $db);

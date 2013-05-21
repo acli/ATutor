@@ -50,7 +50,9 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
 $this->_pages["$dir/forum/list.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/forum/list.php"]['img']       = 'images/home-forums.png';
 $this->_pages["$dir/forum/list.php"]['icon']      = 'images/pin.png'; // favicon
-$this->_pages["$dir/forum/list.php"]['text']      = 'Sezione Forum';  // text
+if (stristr($dir, '/_standard/') === FALSE) {
+    $this->_pages["$dir/forum/list.php"]['text']  = 'Sezione Forum';  // text
+}
 $this->_pages["$dir/forum/list.php"]['children']  = array(
     'search.php?search_within[]=forums'
 );

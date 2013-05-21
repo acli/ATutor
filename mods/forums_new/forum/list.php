@@ -15,8 +15,9 @@ define('AT_MODULE_ROOT', '../');
 require(AT_MODULE_ROOT.'lib/module.inc.php');
 define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require (AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = MODULE_DIR;
 
-require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+require(AT_MODULE_ROOT.'lib/forums.inc.php');
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 <table class="data static" summary="" rules="rows">
@@ -57,17 +58,17 @@ if ($num_shared || $num_nonshared || $num_groups) {
     echo '<tbody>';
         foreach ($forums as $row) : ?>
             <tr>
-                <td><a href="<?php echo url_rewrite('mods/_standard/forums/forum/index.php?fid='.$row['forum_id']); ?>"><?php echo AT_print($row['title'], 'forums.title'); ?></a> <?php
+                <td><a href="<?php echo url_rewrite($forums_d.'/forum/index.php?fid='.$row['forum_id']); ?>"><?php echo AT_print($row['title'], 'forums.title'); ?></a> <?php
                     // patch has added the two icons below
                     if ($_SESSION['enroll']) {
                         $sql    = "SELECT 1 AS constant FROM ".TABLE_PREFIX."forums_subscriptions WHERE forum_id=$row[forum_id] AND member_id=$_SESSION[member_id]";
                         $result1 = mysql_query($sql, $db);
                     
 if ($row1 = mysql_fetch_row($result1)) {
-                    echo '<a href="mods/_standard/forums/forum/subscribe_forum.php?fid='.$row['forum_id'].SEP.'us=1">
+                    echo '<a href="'.$forums_d.'/forum/subscribe_forum.php?fid='.$row['forum_id'].SEP.'us=1">
                             <br /><img border="0" src="'.AT_BASE_HREF.'images/unsubscribe-envelope.png" alt="" /> '._AT('unsubscribe1').'</a>';
                         } else {
-                            echo '<a href="mods/_standard/forums/forum/subscribe_forum.php?fid='.$row['forum_id'].'">
+                            echo '<a href="'.$forums_d.'/forum/subscribe_forum.php?fid='.$row['forum_id'].'">
                             <br /><img border="0" src="'.AT_BASE_HREF.'images/subscribe-envelope.png" alt="" /> '._AT('subscribe1').'</a>';
                         }
                     } ?>

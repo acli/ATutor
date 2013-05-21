@@ -49,12 +49,14 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
 // Student pages - 'parent' should not be set
 $this->_pages["$dir/forum/list.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/forum/list.php"]['img']       = 'images/home-forums.png';
-$this->_pages["$dir/forum/list.php"]['icon']      = 'images/pin.png';       //added favicon
-$this->_pages["$dir/forum/list.php"]['text']      = 'Sezione Forum';                //added text
-$this->_pages["$dir/forum/list.php"]['children']  = array('search.php?search_within[]=forums');
-    //list.php"s children
-    $this->_pages['search.php?search_within[]=forums']['title_var'] = 'search';
-    $this->_pages['search.php?search_within[]=forums']['parent']    = "$dir/index.php";
+$this->_pages["$dir/forum/list.php"]['icon']      = 'images/pin.png'; // favicon
+$this->_pages["$dir/forum/list.php"]['text']      = 'Sezione Forum';  // text
+$this->_pages["$dir/forum/list.php"]['children']  = array(
+    'search.php?search_within[]=forums'
+);
+//list.php"s children
+$this->_pages['search.php?search_within[]=forums']['title_var'] = 'search';
+$this->_pages['search.php?search_within[]=forums']['parent']    = "$dir/index.php";
 
 // For admin
 if (admin_authenticate(AT_ADMIN_PRIV_FORUMS_NEW, TRUE) || admin_authenticate(AT_ADMIN_PRIV_ADMIN_NEW, TRUE)) {

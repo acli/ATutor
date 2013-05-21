@@ -19,14 +19,23 @@ $forums_d = MODULE_DIR;
 
 authenticate(AT_PRIV_FORUMS);
 
+$table_prefix = TABLE_PREFIX;
+$at_base_href = AT_BASE_HREF;
 $pid = intval($_GET['pid']);
+$fid = intval($_GET['fid']);
 
-$sql = "UPDATE ".TABLE_PREFIX."forums_threads SET sticky=CASE sticky WHEN 1 THEN 0 ELSE 1 END, last_comment=last_comment, date=date WHERE post_id=$pid";
+$sql = <<<EOT
+UPDATE {$table_prefix}forums_threads
+   SET sticky=CASE sticky WHEN 1 THEN 0 ELSE 1 END,
+       last_comment=last_comment,
+       date=date
+ WHERE post_id=$pid
+EOT;
 $result = mysql_query($sql, $db);
 
 $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
 
-header('Location: '.AT_BASE_HREF.$forums_d.'/forum/index.php?fid='.intval($_GET['fid']));
+header("Location: $at_base_href$forums_d/forum/index.php?fid=$fid");
 exit;
 
 ?>

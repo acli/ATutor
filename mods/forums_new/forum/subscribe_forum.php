@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -10,11 +10,12 @@
 /* modify it under the terms of the GNU General Public License  */
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
-// $Id: index.php 2526 2004-11-25 18:54:16Z greg$
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
-include(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+include(AT_MODULE_ROOT.'lib/forums.inc.php');
 
 $fid = intval($_REQUEST['fid']);
 

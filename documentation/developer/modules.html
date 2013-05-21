@@ -783,6 +783,7 @@ if (mysql_num_rows($result) > 0) {
 
 <a name="navigation"></a>
 <h2>Navigation &amp; Hierarchy</h2>
+<p><strong>FIXME: This section is seriously out of date and should not be trusted without first tracing ATutor&rsquo;s code. There is no <kbd>$_module_pages</kbd> array anywhere in this version of ATutor.</strong>
 	<p><em>Every</em> page in ATutor must have an entry in the global <kbd>$_pages</kbd> array where the key to the array is the relative path to the file from ATutor's base directory. Module pages are specified using the <kbd>$_module_pages</kbd> array, which are then merged into the <kbd>$_pages</kbd> array when the <kbd>module.php</kbd> file is loaded. The array supports the following attributes:</p>
 
 	<dl>

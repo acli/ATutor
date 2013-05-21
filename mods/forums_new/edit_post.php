@@ -16,6 +16,7 @@ define('AT_MODULE_ROOT', './');
 require(AT_MODULE_ROOT.'lib/module.inc.php');
 define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require (AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = MODULE_DIR;
 
 require(AT_MODULE_ROOT.'lib/forums.inc.php');
 

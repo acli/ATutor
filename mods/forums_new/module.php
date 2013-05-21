@@ -26,7 +26,10 @@ $this->_list[$id] = array(
 );
 
 // Tool manager
-$this->_tool[$id] = array('title_var'=>$id,'file'=>'mods/_core/tool_manager/forums_tool.php');
+$this->_tool[$id] = array(
+    'title_var' => $id,
+    'file'      => 'mods/_core/tool_manager/forums_tool.php',
+);
 
 // Instructor pages
 $this->_pages["$dir/index_instructor.php"]['title_var'] = $id;

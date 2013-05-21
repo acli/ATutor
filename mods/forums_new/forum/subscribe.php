@@ -15,7 +15,8 @@ define('AT_MODULE_ROOT', '../');
 require(AT_MODULE_ROOT.'lib/module.inc.php');
 define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
-require(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+require(AT_MODULE_ROOT.'lib/forums.inc.php');
+$forums_d = MODULE_DIR;
 
 $_section[0][0] = _AT('discussions');
 $_section[0][1] = 'discussions/';
@@ -73,13 +74,10 @@ if($_REQUEST['t']){
 
 if ($_GET['us'] == '1') {
     $msg->addFeedback(array('THREAD_UNSUBSCRIBED', $thread_name));
-    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/forum/'.$this_pid);
-    exit;
-}
-
-/* else: */
+} else {
     $msg->addFeedback(array('THREAD_SUBSCRIBED', $thread_name ));
-    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/forum/'.$this_pid);
-    exit;
+}
+header('Location: '.AT_BASE_HREF.$forums_d.'/forum/'.$this_pid);
+exit;
 
 ?>

@@ -16,8 +16,10 @@
 if (!defined('AT_INCLUDE_PATH')) { exit; }
 if (!isset($this) || (isset($this) && (strtolower(get_class($this)) != 'module'))) { exit(__FILE__ . ' is not a Module'); }
 
-$id = 'forums_new';
-$dir = 'mods/forums_new';
+$real_id = 'forums';      // what we REALLY want to be known as, eventually
+
+$id = 'forums_new';       // what we are currently known as
+$dir = 'mods/forums_new'; // where we currently reside at
 
 define("AT_PRIV_FORUMS",       $this->getPrivilege() );
 define("AT_ADMIN_PRIV_FORUMS", $this->getAdminPrivilege() );
@@ -26,12 +28,6 @@ define("AT_ADMIN_PRIV_FORUMS", $this->getAdminPrivilege() );
 $this->_stacks['posts'] = array(
     'title_var' => 'posts',
     'file'      => AT_INCLUDE_PATH."../$dir/dropdown/posts.inc.php",
-);
-
-// Module-specific sub-content in course details page
-$this->_list[$id] = array(
-    'title_var' => $id,
-    'file'      => "$dir/sublinks.php",
 );
 
 // Tool manager
@@ -54,7 +50,7 @@ $this->_tool[$id] = array(
  */
 
 // Management tool chain at index.php (as opposed to forum/list.php)
-$this->_pages["$dir/index.php"]['title_var'] = 'forums'; // NOTE: not $id;
+$this->_pages["$dir/index.php"]['title_var'] = $real_id;
 $this->_pages["$dir/index.php"]['parent']    = 'tools/index.php';
 $this->_pages["$dir/index.php"]['guide']     = 'instructor/?p=forums.php';
 $this->_pages["$dir/index.php"]['children']  = array(
@@ -81,19 +77,29 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
  *
  * Note that the course instructor must still manually enable the module in
  * the Course Tools and Student Tools management panels.
+ *
+ * Our "sublinks.php" goes here. What it is is the little blurb that goes
+ * under the module's box in the course home page, and it is keyed to the
+ * title_var of the $_group_tool or $_student_tool entry point (but keyed
+ * under $this->_list instead of $this->_pages). sublinks.php should act like
+ * a function that returns something and if it does not return anything the
+ * value of the 'text' key is used instead.
  */
 
 $_group_tool = $_student_tool = "$dir/forum/list.php";
 
-$this->_pages["$dir/forum/list.php"]['title_var'] = 'forums'; // NOTE: not $id;
-$this->_pages["$dir/forum/list.php"]['img']       = 'images/home-forums.png';
-$this->_pages["$dir/forum/list.php"]['icon']      = 'images/pin.png'; // favicon
-if (stristr($dir, '/_standard/') === FALSE) {
-    $this->_pages["$dir/forum/list.php"]['text']  = 'Sezione Forum';  // text
-}
-$this->_pages["$dir/forum/list.php"]['children']  = array(
+$this->_pages[$_student_tool]['title_var'] = $real_id;
+$this->_pages[$_student_tool]['img']       = 'images/home-forums.png';
+$this->_pages[$_student_tool]['icon']      = 'images/pin.png'; // favicon
+$this->_pages[$_student_tool]['children']  = array(
     'search.php?search_within[]=forums'
 );
+// $this->_pages[$_student_tool]['title_var'] is, of course, just $real_id
+$this->_list[$this->_pages[$_student_tool]['title_var']] = array(
+    'title_var' => $id,
+    'file'      => "$dir/sublinks.php",
+);
+//$this->_pages[$_student_tool]['text']  = '';  // sublinks fallback
 
 //list.php"s children
 $this->_pages['search.php?search_within[]=forums']['title_var'] = 'search';

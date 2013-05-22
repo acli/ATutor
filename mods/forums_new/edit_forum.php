@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************************/
 /* ATutor                                                                   */
 /****************************************************************************/
-/* Copyright (c) 2002-2010                                                  */
+/* Copyright (c) 2002-2010, 2013                                            */
 /* Inclusive Design Institute                                               */
 /* http://atutor.ca                                                         */
 /*                                                                          */
@@ -10,18 +10,20 @@
 /* modify it under the terms of the GNU General Public License              */
 /* as published by the Free Software Foundation.                            */
 /****************************************************************************/
-// $Id$
 
-define('AT_INCLUDE_PATH', '../../../include/');
+define('AT_MODULE_ROOT', './');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require (AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = MODULE_DIR;
 
 authenticate(AT_PRIV_FORUMS);
 
-require (AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+require (AT_MODULE_ROOT.'lib/forums.inc.php');
 
 if (isset($_POST['cancel'])) {
     $msg->addFeedback('CANCELLED');
-    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/index.php');
+    header('Location: '.AT_BASE_HREF.$forums_d.'/index.php');
     exit;
 } else if (isset($_POST['edit_forum'])) {
     $_POST['fid'] = intval($_POST['fid']);
@@ -40,7 +42,7 @@ if (isset($_POST['cancel'])) {
             $msg->addError('FORUM_NO_EDIT_SHARE');
         }
         
-        header('Location: '.AT_BASE_HREF.'mods/_standard/forums/index.php');
+        header('Location: '.AT_BASE_HREF.$forums_d.'/index.php');
         exit;
     }
 }

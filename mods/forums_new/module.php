@@ -54,7 +54,6 @@ $this->_tool[$id] = array(
  */
 
 // Management tool chain at index.php (as opposed to forum/list.php)
-$this->_pages["$dir/index.php"]['title'] = 'FIXME';
 $this->_pages["$dir/index.php"]['title_var'] = 'forums'; // NOTE: not $id;
 $this->_pages["$dir/index.php"]['parent']    = 'tools/index.php';
 $this->_pages["$dir/index.php"]['guide']     = 'instructor/?p=forums.php';

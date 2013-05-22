@@ -80,7 +80,7 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
  * declared global.
  *
  * Note that the course instructor must still manually enable the module in
- * the Student Tools management panel.
+ * the Course Tools and Student Tools management panels.
  */
 
 $_group_tool = $_student_tool = "$dir/forum/list.php";

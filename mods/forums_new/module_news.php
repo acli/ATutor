@@ -29,6 +29,7 @@ function forums_new_news() {
     $at_module_root = $matches[1];
     require_once("$at_module_root/lib/module.inc.php");
     require_once("$at_module_root/lib/forums.inc.php");
+    $forums_d = MODULE_DIR;
 
     global $db, $enrolled_courses, $system_courses;
     $news = array();
@@ -58,7 +59,7 @@ function forums_new_news() {
                                 'alt'=>_AT('forum'),
                                 'thumb'=>'images/pin.png',
                                 'course'=>$system_courses[$row['course_id']]['title'],
-                                'link'=>'<a href="bounce.php?course='.$row['course_id'].SEP.'p='.urlencode('mods/_standard/forums/forum/index.php?fid='.$forum_obj['forum_id']).'"'.
+                                'link'=>'<a href="bounce.php?course='.$row['course_id'].SEP.'p='.urlencode($forums_d.'/forum/index.php?fid='.$forum_obj['forum_id']).'"'.
                                 (strlen($link_title) > SUBLINK_TEXT_LEN ? ' title="'.AT_print($link_title, 'forums.title').'"' : '') .'>'. 
                                 AT_print(validate_length($link_title, SUBLINK_TEXT_LEN, VALIDATE_LENGTH_FOR_DISPLAY), 'forums.title') .'</a>');
                         }

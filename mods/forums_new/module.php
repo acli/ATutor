@@ -17,12 +17,10 @@ if (!defined('AT_INCLUDE_PATH')) { exit; }
 if (!isset($this) || (isset($this) && (strtolower(get_class($this)) != 'module'))) { exit(__FILE__ . ' is not a Module'); }
 
 $real_id = 'forums';      // what we REALLY want to be known as, eventually
-
 $id = 'forums_new';       // what we are currently known as
-$dir = 'mods/forums_new'; // where we currently reside at
+$subdir = '';             // '' if extra, '_standard/' after becoming standard
 
-define("AT_PRIV_FORUMS",       $this->getPrivilege() );
-define("AT_ADMIN_PRIV_FORUMS", $this->getAdminPrivilege() );
+$dir = "mods/$subdir$id"; // where we currently reside at
 
 // Side menu - Note that the standard forums module uses 'posts' instead of $id
 $this->_stacks['posts'] = array(
@@ -35,6 +33,15 @@ $this->_tool[$id] = array(
     'title_var' => $id,
     'file'      => 'mods/_core/tool_manager/forums_tool.php',
 );
+
+// Pass some constants to sublinks.php
+define('AT_FORUMS_NEW__REAL_ID', $real_id);
+define('AT_FORUMS_NEW__ID', $id);
+define('AT_FORUMS_NEW__DIR', $dir);
+
+// FIXME: This will clash with the standard forums module
+define("AT_PRIV_FORUMS",       $this->getPrivilege() );
+define("AT_ADMIN_PRIV_FORUMS", $this->getAdminPrivilege() );
 
 /******************************************************************************
  * Instructor's pages:
@@ -149,6 +156,6 @@ function forums_get_group_url($group_id) {
     $result = mysql_query($sql, $db);
     $row = mysql_fetch_assoc($result);
 
-    return "$dir/forum/index.php?fid=".$row['forum_id'];
+    return AT_FORUMS_NEW__DIR.'/forum/index.php?fid='.$row['forum_id'];
 }
 ?>

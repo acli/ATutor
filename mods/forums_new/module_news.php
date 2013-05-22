@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************************/
 /* ATutor                                                                   */
 /****************************************************************************/
-/* Copyright (c) 2002-2010                                                  */
+/* Copyright (c) 2002-2010, 2013                                            */
 /* Inclusive Design Institute                                               */
 /* http://atutor.ca                                                         */
 /*                                                                          */
@@ -10,13 +10,17 @@
 /* modify it under the terms of the GNU General Public License              */
 /* as published by the Free Software Foundation.                            */
 /****************************************************************************/
-// $Id$
 /*
  * Get the latest updates of this module
  * @return list of news, [timestamp]=>
  */
 function forums_new_news() {
-    require_once(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+    // FIXME: BIG PROBLEM: we are at the ATutor root and don't know where
+    // FIXME: the module directory is. We might be an extra module or we
+    // FIXME: might have moved up to mods/_standard space. There's no way
+    // FIXME: we can know which file to include!!!
+    require_once(AT_INCLUDE_PATH.'../mods/forums_new/lib/module.inc.php');
+    require_once(AT_INCLUDE_PATH.'../mods/forums_new/lib/forums.inc.php');
     global $db, $enrolled_courses, $system_courses;
     $news = array();
 
@@ -24,7 +28,11 @@ function forums_new_news() {
         return $news;
     } 
 
-    $sql = 'SELECT E.approved, E.last_cid, C.* FROM '.TABLE_PREFIX.'course_enrollment E, '.TABLE_PREFIX.'courses C WHERE C.courses in '. $enrolled_courses . ' AND E.member_id=1 AND E.course_id=C.course_id ORDER BY C.title';
+    // Make sure we are accessing the new forum posts only through courses the
+    // student is actually enrolled in. (The global $enrolled_courses looks
+    // like (course_id1, course_id2,..., course_idN).
+
+    $sql = 'SELECT E.approved, E.last_cid, C.* FROM '.TABLE_PREFIX.'course_enrollment E, '.TABLE_PREFIX.'courses C WHERE C.course_id in '. $enrolled_courses . ' AND E.member_id=1 AND E.course_id=C.course_id ORDER BY C.title';
     $result = mysql_query($sql, $db);
     if ($result) {
         while($row = mysql_fetch_assoc($result)){

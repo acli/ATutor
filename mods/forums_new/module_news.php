@@ -15,12 +15,21 @@
  * @return list of news, [timestamp]=>
  */
 function forums_new_news() {
-    // FIXME: BIG PROBLEM: we are at the ATutor root and don't know where
-    // FIXME: the module directory is. We might be an extra module or we
-    // FIXME: might have moved up to mods/_standard space. There's no way
-    // FIXME: we can know which file to include!!!
-    require_once(AT_INCLUDE_PATH.'../mods/forums_new/lib/module.inc.php');
-    require_once(AT_INCLUDE_PATH.'../mods/forums_new/lib/forums.inc.php');
+
+    // Our current directory is the ATutor root, so we don't really know where
+    // we are in the filesystem. Since we can either be a standard module or
+    // an extra module, we can't hard-code any paths either. So figure out
+    // where we are and then self-configure
+
+    if (!preg_match('/^(.*\/mods(?:\/_standard)?(?!_standard\/)\/[^\/]+)/',
+            str_replace(DIRECTORY_SEPARATOR, '/', realpath(__FILE__)),
+            $matches)) {
+        throw new Exception('Internal error: Cannot figure out module path');
+    }
+    $at_module_root = $matches[1];
+    require_once("$at_module_root/lib/module.inc.php");
+    require_once("$at_module_root/lib/forums.inc.php");
+
     global $db, $enrolled_courses, $system_courses;
     $news = array();
 

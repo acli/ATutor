@@ -73,7 +73,8 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
  * The entry point(s) for the student's tool chain is specified in $_group_tool
  * and $_student_tool. These variables are dynamically inherited from
  * mods/_core/modules/classes/Module.class.php so they don't need to be
- * declared global.
+ * declared global. Note that if $_student_tool and $_group_tool are different
+ * we must define their behaviours separately; in this case they are the same.
  *
  * Note that the course instructor must still manually enable the module in
  * the Course Tools and Student Tools management panels.
@@ -84,6 +85,10 @@ $this->_pages["$dir/edit_forum.php"]['parent'] = "$dir/index.php";
  * under $this->_list instead of $this->_pages). sublinks.php should act like
  * a function that returns something and if it does not return anything the
  * value of the 'text' key is used instead.
+ *
+ * There is actually no requirement that there be a sublinks.php file; there is
+ * not even a requirement that it be called sublinks.php. All that is required
+ * is that it's keyed to the correct title_var in the $this->_list array.
  */
 
 $_group_tool = $_student_tool = "$dir/forum/list.php";
@@ -94,14 +99,15 @@ $this->_pages[$_student_tool]['icon']      = 'images/pin.png'; // favicon
 $this->_pages[$_student_tool]['children']  = array(
     'search.php?search_within[]=forums'
 );
-// $this->_pages[$_student_tool]['title_var'] is, of course, just $real_id
+// NOTE: $this->_pages[$_student_tool]['title_var'] is of course just $real_id,
+//       but writing it this way makes it absolutely clear why we want $real_id
 $this->_list[$this->_pages[$_student_tool]['title_var']] = array(
     'title_var' => $id,
     'file'      => "$dir/sublinks.php",
 );
 //$this->_pages[$_student_tool]['text']  = '';  // sublinks fallback
 
-//list.php"s children
+// list.php's children
 $this->_pages['search.php?search_within[]=forums']['title_var'] = 'search';
 $this->_pages['search.php?search_within[]=forums']['parent']    = "$dir/index.php";
 

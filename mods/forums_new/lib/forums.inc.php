@@ -291,10 +291,29 @@ function print_entry($row) {
             </div>
 
             <div class="body">
-                <p><?php echo AT_print($row['body'], 'forums_threads.body'); ?></p>
+                <p><?php echo AT_print(fix_op_tags($row['body']), 'forums_threads.body'); ?></p>
             </div>
         </div>
     </li>
 <?php
+}
+
+/**
+* Work around the poorly designed [op] tag, which contains an actual relative
+* URL (instead of parameters that would have enabled us to reconstruct the URL).
+* This reduces to a no-op the day this module moves to mods/_standard/forums.
+* @access  public
+* @param   string  $body  The body of the forum post
+* @see     AT_print       in include/lib/output.inc.php
+* @see     myCodes        in include/lib/output.inc.php
+* @author  Ambrose Li
+*/
+function fix_op_tags( $body ) {
+    if (AT_FORUMS_NEW__DIR != 'mods/_standard/forums') {
+        $body = preg_replace('/\[op\]mods\/_standard\/forums\//',
+                        '[op]'.AT_FORUMS_NEW__DIR.'/',
+                        $body);
+    }
+    return $body;
 }
 ?>

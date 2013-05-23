@@ -141,16 +141,21 @@ require(AT_INCLUDE_PATH.'header.inc.php');
     if ($_GET['reply'] == $post_row['post_id']) {
         $saved_post = $post_row;
     }
-    echo '
-        </ul>
+    echo '</ul>
       <div class="forum-paginator">&nbsp;
       </div><br />';
 
-    $sql    = "SELECT *, DATE_FORMAT(date, '%Y-%m-%d %H-%i:%s') AS date, UNIX_TIMESTAMP(date) AS udate FROM ".TABLE_PREFIX."forums_threads WHERE parent_id=$pid AND forum_id=$fid ORDER BY date ";
-    if ($_SESSION['thread_order'] == 'a')
-        $sql .= "ASC LIMIT $start, $num_per_page";
-    else
-        $sql .= "DESC LIMIT $start, $num_per_page";
+    $AT_ = TABLE_PREFIX;
+    $ASC_or_DESC = ($_SESSION['thread_order'] == 'a')? 'ASC': 'DESC';
+    $sql = <<<EOT
+SELECT *,
+            DATE_FORMAT(date, '%Y-%m-%d %H-%i:%s') AS date,
+            UNIX_TIMESTAMP(date) AS udate
+       FROM {$AT_}forums_threads
+ WHERE parent_id=$pid AND forum_id=$fid
+ ORDER BY date $ASC_or_DESC
+ LIMIT $start, $num_per_page
+EOT;
     
     $result = mysql_query($sql, $db);
 

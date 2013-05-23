@@ -28,9 +28,9 @@ function forums_new_news() {
         return $news;
     } 
 
-    // Make sure we are accessing the new forum posts only through courses the
-    // student is actually enrolled in. (The global $enrolled_courses looks
-    // like (course_id1, course_id2,..., course_idN).
+    // NOTE: $enrolled_courses is a string representation of the list of
+    // enrolled course course_id's, in python notation (parentheized and
+    // comma delimited)
 
     $sql = 'SELECT E.approved, E.last_cid, C.* FROM '.TABLE_PREFIX.'course_enrollment E, '.TABLE_PREFIX.'courses C WHERE C.course_id in '. $enrolled_courses . ' AND E.member_id=1 AND E.course_id=C.course_id ORDER BY C.title';
     $result = mysql_query($sql, $db);
@@ -44,12 +44,13 @@ function forums_new_news() {
                         foreach ($forums as $forum_obj){
                             $forum_obj['course_id'] = $row['course_id'];
                             $link_title = $forum_obj['title'];
-                            $news[] = array('time'=>$forum_obj['last_post'], 
-                                'object'=>$forum_obj, 
-                                'alt'=>_AT('forum'),
-                                'thumb'=>'images/pin.png',
-                                'course'=>$system_courses[$row['course_id']]['title'],
-                                'link'=>'<a href="bounce.php?course='.$row['course_id'].SEP.'p='.urlencode($forums_d.'/forum/index.php?fid='.$forum_obj['forum_id']).'"'.
+                            $news[] = array(
+                                'time'   => $forum_obj['last_post'], 
+                                'object' => $forum_obj, 
+                                'alt'    => _AT('forum'),
+                                'thumb'  => 'images/pin.png',
+                                'course' => $system_courses[$row['course_id']]['title'],
+                                'link'   => '<a href="bounce.php?course='.$row['course_id'].SEP.'p='.urlencode($forums_d.'/forum/index.php?fid='.$forum_obj['forum_id']).'"'.
                                 (strlen($link_title) > SUBLINK_TEXT_LEN ? ' title="'.AT_print($link_title, 'forums.title').'"' : '') .'>'. 
                                 AT_print(validate_length($link_title, SUBLINK_TEXT_LEN, VALIDATE_LENGTH_FOR_DISPLAY), 'forums.title') .'</a>');
                         }

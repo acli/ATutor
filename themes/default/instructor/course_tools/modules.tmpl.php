@@ -8,12 +8,12 @@ global $_pages;
 <tr>
 	<th scope="cols"><?php echo _AT('section'); ?></th>
 	<th><?php echo _AT('location'); ?></th>
-	<th><?php echo _AT('order'); ?></th>
+	<th colspan="2"><?php echo _AT('order'); ?></th>
 </tr>
 </thead>
 <tfoot>
 <tr>
-	<td colspan="3" style="text-align:right;"><input type="submit" name="submit" value="<?php echo _AT('save'); ?>" accesskey="s" /></td>
+	<td colspan="4" style="text-align:right;"><input type="submit" name="submit" value="<?php echo _AT('save'); ?>" accesskey="s" /></td>
 </tr>
 </tfoot>
 <tbody>
@@ -39,7 +39,7 @@ global $_pages;
 			<input type="checkbox" name="home[]" value="<?php echo $module; ?>" id="h<?php echo $count; ?>" /><label for="h<?php echo $count; ?>"><?php echo _AT('home'); ?></label>
 		<?php endif; ?>
 	</td>
-	<td align="right">
+	<td align=center>
 		<?php if (!in_array($module, $_pages[AT_NAV_HOME]) && !in_array($module, $_pages[AT_NAV_COURSE])): ?>
 			&nbsp;
 		<?php else: ?>
@@ -48,6 +48,12 @@ global $_pages;
 			<?php else: ?>
 				<img src="images/clr.gif" alt="" width="12" />
 			<?php endif; ?>
+		<?php endif; ?>
+	</td>
+	<td align=center>
+		<?php if (!in_array($module, $_pages[AT_NAV_HOME]) && !in_array($module, $_pages[AT_NAV_COURSE])): ?>
+			&nbsp;
+		<?php else: ?>
 			<?php if (($count != $this->num_main) && ($count < $this->num_modules)): ?>
 				<input type="submit" name="down[<?php echo $module; ?>]" value="<?php echo _AT('move_down'); ?>" title="<?php echo _AT('move_down'); ?>" style="background-color: white; border: 1px solid; padding: 0px;"/>
 			<?php else: ?>

@@ -1,8 +1,8 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /****************************************************************/
 /* ATutor                                                       */
 /****************************************************************/
-/* Copyright (c) 2002-2010                                      */
+/* Copyright (c) 2002-2010, 2013                                */
 /* Inclusive Design Institute                                   */
 /* http://atutor.ca                                             */
 /*                                                              */
@@ -11,9 +11,12 @@
 /* as published by the Free Software Foundation.                */
 /****************************************************************/
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
-include(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+include(AT_MODULE_ROOT.'lib/forums.inc.php');
+$forums_d = MODULE_DIR;
 
 authenticate(AT_PRIV_FORUMS);
 
@@ -69,13 +72,15 @@ if (isset($_POST['cancel'])) {
     exit;
 }
 
-$_pages['mods/_standard/forums/forum/index.php?fid='.$_REQUEST['fid']]['title']    = get_forum_name($_REQUEST['fid']);
-$_pages['mods/_standard/forums/forum/index.php?fid='.$_REQUEST['fid']]['parent']   = 'mods/_standard/forums/forum/list.php';
-$_pages['mods/_standard/forums/forum/index.php?fid='.$_REQUEST['fid']]['children'] = array('mods/_standard/forums/forum/move_thread.php');
+$_pages["$forums_d/forum/index.php?fid=$_REQUEST[fid]"]['title']    = get_forum_name($_REQUEST['fid']);
+$_pages["$forums_d/forum/index.php?fid=$_REQUEST[fid]"]['parent']   = "$forums_d/forum/list.php";
+$_pages["$forums_d/forum/index.php?fid=$_REQUEST[fid]"]['children'] = array(
+    "$forums_d/forum/move_thread.php"
+);
 
-$_pages['mods/_standard/forums/forum/move_thread.php']['title_var'] = 'move_thread';
-$_pages['mods/_standard/forums/forum/move_thread.php']['parent']    = 'mods/_standard/forums/forum/index.php?fid='.$_REQUEST['fid'];
-$_pages['mods/_standard/forums/forum/move_thread.php']['children']  = array();
+$_pages["$forums_d/forum/move_thread.php"]['title_var'] = 'move_thread';
+$_pages["$forums_d/forum/move_thread.php"]['parent']    = "$forums_d/forum/index.php?fid=$_REQUEST[fid]";
+$_pages["$forums_d/forum/move_thread.php"]['children']  = array();
 
 require(AT_INCLUDE_PATH.'header.inc.php');
 ?>

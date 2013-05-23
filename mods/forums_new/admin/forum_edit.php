@@ -1,26 +1,28 @@
-<?php
+<?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
 /************************************************************************/
 /* ATutor                                                               */
 /************************************************************************/
-/* Copyright (c) 2002-2010                                              */
+/* Copyright (c) 2002-2010, 2013                                        */
 /* Inclusive Design Institute                                           */
 /* http://atutor.ca                                                     */
 /* This program is free software. You can redistribute it and/or        */
 /* modify it under the terms of the GNU General Public License          */
 /* as published by the Free Software Foundation.                        */
 /************************************************************************/
-// $Id$
 
-define('AT_INCLUDE_PATH', '../../../../include/');
+define('AT_MODULE_ROOT', '../');
+require(AT_MODULE_ROOT.'lib/module.inc.php');
+define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
+$forums_d = AT_FORUMS_NEW__DIR;
 
 admin_authenticate(AT_ADMIN_PRIV_FORUMS);
 
-include(AT_INCLUDE_PATH.'../mods/_standard/forums/lib/forums.inc.php');
+include(AT_MODULE_ROOT.'lib/forums.inc.php');
 
 if (isset($_POST['cancel'])) {
     $msg->addFeedback('CANCELLED');
-    header('Location: '.AT_BASE_HREF.'mods/_standard/forums/admin/forums.php');
+    header('Location: '.AT_BASE_HREF.$forums_d.'/admin/forums.php');
     exit;
 } else if (isset($_POST['edit_forum'])) {
     $missing_fields = array();
@@ -93,7 +95,7 @@ if (isset($_POST['cancel'])) {
             }
         }
         $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
-        header('Location: '.AT_BASE_HREF.'mods/_standard/forums/admin/forums.php');
+        header('Location: '.AT_BASE_HREF.$forums_d.'/admin/forums.php');
         exit;
     }
 }

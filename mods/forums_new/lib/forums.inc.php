@@ -310,8 +310,8 @@ function print_entry($row) {
 */
 function fix_op_tags( $body ) {
     if (AT_FORUMS_NEW__DIR != 'mods/_standard/forums') {
-        $body = preg_replace('/\[op\]mods\/_standard\/forums\//',
-                        '[op]'.AT_FORUMS_NEW__DIR.'/',
+        $body = preg_replace('/(\[op\])mods\/_standard\/forums\//',
+                        '$1'.AT_FORUMS_NEW__DIR.'/',
                         $body);
     }
     return $body;

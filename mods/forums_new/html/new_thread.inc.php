@@ -12,7 +12,7 @@
 /****************************************************************/
 
 if (!defined('AT_INCLUDE_PATH')) { exit; }
-if (!defined('MODULE_DIR')) { print "You forgot lib/module.inc.php"; exit; }
+if (!defined('AT_FORUMS_NEW__DIR')) { print "You forgot lib/module.inc.php"; exit; }
 
 if (!$_SESSION['valid_user']) {
     $msg->printInfos('LOGIN_TO_POST');
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 <a name="post"></a>
-<form action="<? print MODULE_DIR; ?>/forum/new_thread.php" method="post" name="form">
+<form action="<? print AT_FORUMS_NEW__DIR; ?>/forum/new_thread.php" method="post" name="form">
 <input name="parent_id" type="hidden" value="<?php echo $parent_id; ?>" />
 <input name="fid" type="hidden" value="<?php echo $fid; ?>" />
 <input name="page" type="hidden" value="<?php echo $_GET['page']; ?>" />

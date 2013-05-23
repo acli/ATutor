@@ -20,10 +20,10 @@ require(AT_INCLUDE_PATH.'vitals.inc.php');
 authenticate(AT_PRIV_FORUMS);
 
 if (isset($_GET['edit'], $_GET['id'])) {
-    header('Location: '.AT_BASE_HREF.MODULE_DIR.'/edit_forum.php?fid='.intval($_GET['id']));
+    header('Location: '.AT_BASE_HREF.AT_FORUMS_NEW__DIR.'/edit_forum.php?fid='.intval($_GET['id']));
     exit;
 } else if (isset($_GET['delete'], $_GET['id'])) {
-    header('Location: '.AT_BASE_HREF.MODULE_DIR.'/delete_forum.php?fid='.intval($_GET['id']));
+    header('Location: '.AT_BASE_HREF.AT_FORUMS_NEW__DIR.'/delete_forum.php?fid='.intval($_GET['id']));
     exit;
 } else if (isset($_GET['edit']) || isset($_GET['delete'])) {
     $msg->addError('NO_ITEM_SELECTED');

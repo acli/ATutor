@@ -1,4 +1,5 @@
 <?php // -*- mode: php; c-basic-offset: 4: -*- vi: set sw=4 et ai sm:
+
 /****************************************************************************/
 /* ATutor                                                                   */
 /****************************************************************************/
@@ -16,20 +17,9 @@
  */
 function forums_new_news() {
 
-    // Our current directory is the ATutor root, so we don't really know where
-    // we are in the filesystem. Since we can either be a standard module or
-    // an extra module, we can't hard-code any paths either. So figure out
-    // where we are and then self-configure
-
-    if (!preg_match('/^(.*\/mods(?:\/_standard)?(?!_standard\/)\/[^\/]+)/',
-            str_replace(DIRECTORY_SEPARATOR, '/', realpath(__FILE__)),
-            $matches)) {
-        throw new Exception('Internal error: Cannot figure out module path');
-    }
-    $at_module_root = $matches[1];
-    require_once("$at_module_root/lib/module.inc.php");
-    require_once("$at_module_root/lib/forums.inc.php");
-    $forums_d = MODULE_DIR;
+    // Apparently module.php is in effect, so we know where we are, sort of
+    require_once(AT_INCLUDE_PATH.'../'.AT_FORUMS_NEW__DIR.'/lib/forums.inc.php');
+    $forums_d = AT_FORUMS_NEW__DIR;
 
     global $db, $enrolled_courses, $system_courses;
     $news = array();

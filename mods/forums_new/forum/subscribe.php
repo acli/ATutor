@@ -16,7 +16,7 @@ require(AT_MODULE_ROOT.'lib/module.inc.php');
 define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require(AT_INCLUDE_PATH.'vitals.inc.php');
 require(AT_MODULE_ROOT.'lib/forums.inc.php');
-$forums_d = MODULE_DIR;
+$forums_d = AT_FORUMS_NEW__DIR;
 
 $_section[0][0] = _AT('discussions');
 $_section[0][1] = 'discussions/';

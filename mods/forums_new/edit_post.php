@@ -16,7 +16,7 @@ define('AT_MODULE_ROOT', './');
 require(AT_MODULE_ROOT.'lib/module.inc.php');
 define('AT_INCLUDE_PATH', at_include_path_from(AT_MODULE_ROOT));
 require (AT_INCLUDE_PATH.'vitals.inc.php');
-$forums_d = MODULE_DIR;
+$forums_d = AT_FORUMS_NEW__DIR;
 
 require(AT_MODULE_ROOT.'lib/forums.inc.php');
 
@@ -37,7 +37,7 @@ $sql = "SELECT *, UNIX_TIMESTAMP(date) AS udate FROM ".TABLE_PREFIX."forums_thre
 $result = mysql_query($sql,$db);
 if (!($post_row = mysql_fetch_assoc($result))) {
     $msg->addError('ITEM_NOT_FOUND');
-    header('Location: '.url_rewrite('/'.MODULE_DIR.'/forum/list.php', AT_PRETTY_URL_IS_HEADER));
+    header('Location: '.url_rewrite('/'.$forums_d.'/forum/list.php', AT_PRETTY_URL_IS_HEADER));
     exit;
 }
 
@@ -51,13 +51,13 @@ if (!(     authenticate(AT_PRIV_FORUMS, AT_PRIV_RETURN)
       ) 
    ) {
     $msg->addError('POST_EDIT_EXPIRE');
-    header('Location: '.url_rewrite(MODULE_DIR.'/forum/list.php', AT_PRETTY_URL_IS_HEADER));
+    header('Location: '.url_rewrite($forums_d.'/forum/list.php', AT_PRETTY_URL_IS_HEADER));
     exit;
 }
 
 if ($_POST['cancel']) {
     $msg->addFeedback('CANCELLED');
-    Header('Location: '.url_rewrite(MODULE_DIR.'/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['pid'], AT_PRETTY_URL_IS_HEADER));
+    Header('Location: '.url_rewrite($forums_d.'/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['pid'], AT_PRETTY_URL_IS_HEADER));
     exit;
 }
 
@@ -93,26 +93,26 @@ if ($_POST['edit_post']) {
         if ($_POST['ppid'] == 0) {
             $_POST['ppid'] = $_POST['pid'];
         }
-        header('Location: '.url_rewrite(MODULE_DIR.'/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['ppid'], AT_PRETTY_URL_IS_HEADER));
+        header('Location: '.url_rewrite($forums_d.'/forum/view.php?fid='.$_POST['fid'].SEP.'pid='.$_POST['ppid'], AT_PRETTY_URL_IS_HEADER));
         exit;
     }
 }
 
-$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['title']    = $forum_info['title'];
-$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['parent']   = "$forums_d/forum/list.php";
-$_pages[MODULE_DIR.'/forum/index.php?fid='.$fid]['children'] = array(
+$_pages["$forums_d/forum/index.php?fid=$fid"]['title']    = $forum_info['title'];
+$_pages["$forums_d/forum/index.php?fid=$fid"]['parent']   = "$forums_d/forum/list.php";
+$_pages["$forums_d/forum/index.php?fid=$fid"]['children'] = array(
     "$forums_d/forum/new_thread.php?fid=$fid"
 );
 
-$_pages[MODULE_DIR.'/forum/new_thread.php?fid='.$fid]['title_var'] = 'new_thread';
-$_pages[MODULE_DIR.'/forum/new_thread.php?fid='.$fid]['parent']    = MODULE_DIR.'/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['title_var'] = 'new_thread';
+$_pages["$forums_d/forum/new_thread.php?fid=$fid"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
 
-$_pages[MODULE_DIR.'/forum/view.php']['title']  = $post_row['subject'];
-$_pages[MODULE_DIR.'/forum/view.php']['parent'] = MODULE_DIR.'/forum/index.php?fid='.$fid;
+$_pages["$forums_d/forum/view.php"]['title']  = $post_row['subject'];
+$_pages["$forums_d/forum/view.php"]['parent'] = $forums_d.'/forum/index.php?fid='.$fid;
 
-$_pages[MODULE_DIR.'/edit_post.php']['title_var'] = 'edit_post';
-$_pages[MODULE_DIR.'/edit_post.php']['parent']    = MODULE_DIR.'/forum/index.php?fid='.$fid;
-$_pages[MODULE_DIR.'/edit_post.php']['children']  = array();
+$_pages["$forums_d/edit_post.php"]['title_var'] = 'edit_post';
+$_pages["$forums_d/edit_post.php"]['parent']    = "$forums_d/forum/index.php?fid=$fid";
+$_pages["$forums_d/edit_post.php"]['children']  = array();
 
 
 $onload = 'document.form.subject.focus();';

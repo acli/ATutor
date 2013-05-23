@@ -14,8 +14,8 @@
 /* that used to be hard-coded in the original forums module             */
 /************************************************************************/
 
-define('MODULE_ID', 'forums_new');
-define('MODULE_DIR', 'mods/forums_new');
+define('AT_FORUMS_NEW__ID', 'forums_new');
+define('AT_FORUMS_NEW__DIR', 'mods/forums_new');
 
 /*
  * A bit of hackery to figure out if we are a standard or an extra module

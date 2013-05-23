@@ -99,12 +99,7 @@ function is_shared_forum($forum_id) {
     $sql = "SELECT COUNT(*) AS cnt FROM ".TABLE_PREFIX."forums_courses WHERE forum_id=$forum_id";
     $result = mysql_query($sql, $db);
     $row = mysql_fetch_assoc($result);
-
-    if ($row['cnt'] > 1) {
-        return TRUE;
-    } // else:
-    
-    return FALSE;
+    return ($row['cnt'] > 1);
 }
 
 

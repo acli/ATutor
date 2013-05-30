@@ -221,6 +221,7 @@ the admin "install module" page. Other subsites don't see this module.</p>
 <a name="module.php"></a>
 	<h3>The <kbd>module.php</kbd> File</h3>
 <p>The <kbd>module.php</kbd> file is typically used to set permissions, and to link module components into the ATutor navigation elements, as tool icons, navigation tabs, sub navigation menus, or side menu blocks, as administrator, course management, and student tools. It is also used to link tools to  My Start Page, or to various public pages that appear where a user is browsing the system without being logged in. The <kbd>module.php</kbd> file can also be used to run module specific functionality. It runs every time a module screen is viewed, loading whatever settings it may contain, or running any scripts that may be required by the module.</p>
+<p>Note that, generally speaking, constants and functions defined in module.php are not available until after vitals.inc.php is included.</p>
 <pre>
 &lt;?php
 /*******
@@ -326,7 +327,7 @@ $this->_tool['example_maker'] = array('title_var'=>'example_maker','file'=>'mods
 </pre>
 <a name="module.sql"></a>
 	<h3>The <kbd>module.sql</kbd> File</h3>
-<p>A very simple <kbd>module.sql</kbd> file such as the following, creates a table for the module, and inserts it's language into the ATutor <kbd>language_text</kbd> table. Module language can then be managed from the ATutor Language Manager. The <kbd>module.sql</kbd> file can contain any number of SQL statements used to add tables or insert data into the ATutor database. </p>
+<p>A very simple <kbd>module.sql</kbd> file such as the following, creates a table for the module, and inserts its language into the ATutor <kbd>language_text</kbd> table. Module language can then be managed from the ATutor Language Manager. The <kbd>module.sql</kbd> file can contain any number of SQL statements used to add tables or insert data into the ATutor database. </p>
 
 <pre>
 # sql file for example maker module

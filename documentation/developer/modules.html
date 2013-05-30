@@ -136,7 +136,7 @@ acronym {
 <h2>Introduction</h2>
 	<p>ATutor 1.5.2 introduced the concept of modules, providing developers with a framework to implement additional functionality in a coherent and loosely coupled way.</p>
 
-	<p>The framework defines methods for assigning privileges, backing-up and restoring content, deleting course specific content, and adding side menu blocks,  student tools, course management and administrative tools, as well as public tools and other types of added functionality . </p>
+	<p>The framework defines methods for assigning privileges, backing up and restoring content, deleting course-specific content, and adding side menu blocks,  student tools, course management and administrative tools, as well as public tools and other types of added functionality . </p>
 
 	<p>The intent is to allow for the development and distribution of modules independent of the ongoing development and release of ATutor. The module structure does allow for the creation of modules that run software that is not distributed under the <acronym title="GNU Not Unix">GNU</acronym> General Public License, but distributed separately under their own, perhaps commercial licenses.</p>
 
@@ -170,10 +170,10 @@ acronym {
 			<dd>This file is used to remove the module from the system. <em>Required for ATutor  1.6.2+</em>.</dd>
 
 			<dt><kbd>module_backup.php</kbd></dt>
-			<dd>This file is used when backing-up and restoring course content. <em>Optional</em>.</dd>
+			<dd>This file is used when backing up and restoring course content. <em>Optional</em>.</dd>
 
 			<dt><kbd>module_delete.php</kbd></dt>
-			<dd>This file is used when deleting course specific content. <em>Optional</em>.</dd>
+			<dd>This file is used when deleting course-specific content. <em>Optional</em>.</dd>
 
 
 			<dt><kbd>module_cron.php</kbd></dt>
@@ -914,7 +914,7 @@ $_input = str_replace('[/black]','&lt;/span&gt;',$_input);
 </pre>
 <a name="backup"></a>
 <h2>Backing-Up and Restoring</h2>
-	<p>It is possible for a module to include its content when a course backup is being created or restored. Backups support database tables with foreign-key constraints as well as course specific directories.</p>
+	<p>It is possible for a module to include its content when a course backup is being created or restored. Backups support database tables with foreign-key constraints as well as course-specific directories.</p>
 <a name="directories"></a>
 	<h3>Directories</h3>
 		<p>A module can backup as many directories as it requires, all specified using the <kbd>$dirs</kbd> array variable.</p>
@@ -927,7 +927,7 @@ $dirs['example_maker/'] = AT_CONTENT_DIR . 'example_maker/?/';
 
 <a name="database"></a>
 	<h3>Database Tables</h3>
-		<p>There are two parts to backing-up and restoring a module's database tables. First, the <acronym title="Structured Query Language">SQL</acronym> queries must be specified using the <kbd>$sql</kbd> array variable and then the restore functions must convert the rows so that they can be inserted into the database tables.</p>
+		<p>There are two parts to backing up and restoring a module's database tables. First, the <acronym title="Structured Query Language">SQL</acronym> queries must be specified using the <kbd>$sql</kbd> array variable and then the restore functions must convert the rows so that they can be inserted into the database tables.</p>
 
 		<p>The example below uses the special <kbd>?</kbd> token as the place holder for the course ID. When the course is backed-up the question-mark will be replaced with the correct course ID. The key to the array is the unique name of the <acronym title="Comma Separated Values">CSV</acronym> file to save in the backup archive, without the extension. The <acronym title="Structured Query Language">SQL</acronym> query itself must only select the fields that will be backed up. If there are foreign key constraints to preserve then the key will have to be retrieved as well so that it can be used when restoring the tables.</p>
 

@@ -790,7 +790,16 @@ if (mysql_num_rows($result) > 0) {
 
 	<p>The tool main page must be specified using the <kbd>$_student_tool</kbd> variable in the <kbd>module.php</kbd> file. The value of that variable must be the relative path to the file from the ATutor base directory (not the module directory). Example: <kbd>$_student_tool = 'mods/example_maker/index.php';</kbd>.</p>
 
-	<p>For the tool to correctly appear its Navigation &amp; Hierarchy must be defined correctly. If the tool is to have an instructor management section then the <em>parent</em> must be specified as being <kbd>tools/index.php</kbd> and the module must have a non-zero privilege level.</p>
+	<p>For the tool to correctly appear,</p>
+<ol>
+<li>its <a href="#navigation">navigation &amp; hierarchy</a> must be defined correctly, and</li>
+<li>it must be enabled by the instructor in the Student Tools management panel.</li>
+</ol>
+<p>If the tool is to have an instructor management section,</p>
+<ol>
+<li>the <em>parent</em> of the start page of the instructor's version of the tool must be specified as being <kbd>tools/index.php</kbd>, and</li>
+<li>the module must have a non-zero privilege level (defined during installation by <kbd>module_install.php</kbd>).</li>
+</ol></p>
 
 <a name="groups"></a>
 <h2>Group Tools</h2>

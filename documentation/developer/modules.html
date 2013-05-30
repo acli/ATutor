@@ -744,7 +744,22 @@ $savant->display('include/box.tmpl.php');
 <a name="sublinks"></a>
 <h2>Course tool details using <kbd>sublinks.php</kbd></h2>
 
-<p>When viewing the detailed course home page, it is possible to display with each module icon, the latest changes, current information for the module, or just a text description of the module. This information is contained in a module sublinks.php file. The following example sublinks.php is free form PHP that gets a list of the three current tests so they can be accessed directly from the course home page along with the link to the Tests & Survey Tool.</p>
+<p>When viewing the detailed course home page, it is possible to display under the icon of each module a small amount of information, such as
+a list of the latest changes,
+current information on the module,
+or just a text description of the module.
+ This information is defined in the PHP file pointed to by <kbd>$this->_pages[$_student_tool]['title_var']</kbd>
+(and/or <kbd>$this->_pages[$_group_tool]['title_var']</kbd>)
+as defined in <kbd>module.php</kbd>,
+which is normally but not necessarily the module identifier. The file is named <kbd>sublinks.php</kbd> by convention, though this naming convention is not enforced anywhere in ATutor.</p>
+<p><kbd>sublinks.php</kbd> must return either an array of strings or return zero.
+If it returns an array of strings, the information in the array will be displayed.
+If it returns zero, <kbd>$this->_pages[$_student_tool]['text']</kbd> (as defined in <kbd>module.php</kbd>) will be displayed instead.
+If <kbd>$this->_pages[$_student_tool]['text']</kbd> is not defined,
+ATutor displays the message corresponding to <kbd>none_found</kbd> in the language_text table.
+<p>The following example shows some free-form PHP that can be put into sublinks.php to get a list of the three current tests,
+so that they can be accessed directly from the course home page,
+along with a link to the Tests & Survey Tool.</p>
 
 <pre>
 

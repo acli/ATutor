@@ -220,8 +220,7 @@ the admin "install module" page. Other subsites don't see this module.</p>
 
 <a name="module.php"></a>
 	<h3>The <kbd>module.php</kbd> File</h3>
-<p>The <kbd>module.php</kbd> file is typically used to set permissions, and to link module components into the ATutor navigation elements, as tool icons, navigation tabs, navigation submenus, or side menu blocks, as administrator, course management, and student tools. It is also used to link tools to  My Start Page, or to various public pages that appear where a user is browsing the system without being logged in. The <kbd>module.php</kbd> file can also be used to run module specific functionality. It runs every time a module screen is viewed, loading whatever settings it may contain, or running any scripts that may be required by the module.</p>
-<p>Note that, generally speaking, constants and functions defined in module.php are not available until after vitals.inc.php is included.</p>
+<p>The <kbd>module.php</kbd> file is used to set permissions, and to link module components into the ATutor navigation elements, as tool icons, navigation tabs, navigation submenus, or side menu blocks, as administrator, course management, and student tools. It is also used to link tools to  My Start Page, or to various public pages that appear where a user is browsing the system without being logged in. The <kbd>module.php</kbd> file can also be used to run module specific functionality. It runs every time a module screen is viewed, loading whatever settings it may contain, or running any scripts that may be required by the module.</p>
 <pre>
 &lt;?php
 /*******
@@ -325,6 +324,8 @@ $this->_tool['example_maker'] = array('title_var'=>'example_maker','file'=>'mods
 
 ?>
 </pre>
+<p>Note that PHP files that function as actual web pages are required to include<kbd>include/vitals.inc.php</kbd>, which will in turn include <kbd>module.php</kbd>.
+In contrast, PHP files that function as ATutor navigation elements, notably <kbd>sublinks.php</kbd>, <kbd>module_groups.php</kbd>, and <kbd>module_news.php</kbd> already have access to constants and functions defined in <kbd>module.php</kbd>.</p>
 <a name="module.sql"></a>
 	<h3>The <kbd>module.sql</kbd> File</h3>
 <p>A very simple <kbd>module.sql</kbd> file such as the following, creates a table for the module, and inserts its language into the ATutor <kbd>language_text</kbd> table. Module language can then be managed from the ATutor Language Manager. The <kbd>module.sql</kbd> file can contain any number of SQL statements used to add tables or insert data into the ATutor database. </p>
